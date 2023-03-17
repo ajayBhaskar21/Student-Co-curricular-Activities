@@ -1,0 +1,3465 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <script>if (navigator.userAgent.match(/MSIE|Internet Explorer/i) || navigator.userAgent.match(/Trident\/7\..*?rv:11/i)) { var href = document.location.href; if (!href.match(/[?&]nowprocket/)) { if (href.indexOf("?") == -1) { if (href.indexOf("#") == -1) { document.location.href = href + "?nowprocket=1" } else { document.location.href = href.replace("#", "?nowprocket=1#") } } else { if (href.indexOf("#") == -1) { document.location.href = href + "&nowprocket=1" } else { document.location.href = href.replace("#", "&nowprocket=1#") } } } }</script>
+    <script>class RocketLazyLoadScripts { constructor() { this.triggerEvents = ["keydown", "mousedown", "mousemove", "touchmove", "touchstart", "touchend", "wheel"], this.userEventHandler = this._triggerListener.bind(this), this.touchStartHandler = this._onTouchStart.bind(this), this.touchMoveHandler = this._onTouchMove.bind(this), this.touchEndHandler = this._onTouchEnd.bind(this), this.clickHandler = this._onClick.bind(this), this.interceptedClicks = [], window.addEventListener("pageshow", t => { this.persisted = t.persisted }), window.addEventListener("DOMContentLoaded", () => { this._preconnect3rdParties() }), this.delayedScripts = { normal: [], async: [], defer: [] }, this.trash = [], this.allJQueries = [] } _addUserInteractionListener(t) { if (document.hidden) { t._triggerListener(); return } this.triggerEvents.forEach(e => window.addEventListener(e, t.userEventHandler, { passive: !0 })), window.addEventListener("touchstart", t.touchStartHandler, { passive: !0 }), window.addEventListener("mousedown", t.touchStartHandler), document.addEventListener("visibilitychange", t.userEventHandler) } _removeUserInteractionListener() { this.triggerEvents.forEach(t => window.removeEventListener(t, this.userEventHandler, { passive: !0 })), document.removeEventListener("visibilitychange", this.userEventHandler) } _onTouchStart(t) { "HTML" !== t.target.tagName && (window.addEventListener("touchend", this.touchEndHandler), window.addEventListener("mouseup", this.touchEndHandler), window.addEventListener("touchmove", this.touchMoveHandler, { passive: !0 }), window.addEventListener("mousemove", this.touchMoveHandler), t.target.addEventListener("click", this.clickHandler), this._renameDOMAttribute(t.target, "onclick", "rocket-onclick"), this._pendingClickStarted()) } _onTouchMove(t) { window.removeEventListener("touchend", this.touchEndHandler), window.removeEventListener("mouseup", this.touchEndHandler), window.removeEventListener("touchmove", this.touchMoveHandler, { passive: !0 }), window.removeEventListener("mousemove", this.touchMoveHandler), t.target.removeEventListener("click", this.clickHandler), this._renameDOMAttribute(t.target, "rocket-onclick", "onclick"), this._pendingClickFinished() } _onTouchEnd(t) { window.removeEventListener("touchend", this.touchEndHandler), window.removeEventListener("mouseup", this.touchEndHandler), window.removeEventListener("touchmove", this.touchMoveHandler, { passive: !0 }), window.removeEventListener("mousemove", this.touchMoveHandler) } _onClick(t) { t.target.removeEventListener("click", this.clickHandler), this._renameDOMAttribute(t.target, "rocket-onclick", "onclick"), this.interceptedClicks.push(t), t.preventDefault(), t.stopPropagation(), t.stopImmediatePropagation(), this._pendingClickFinished() } _replayClicks() { window.removeEventListener("touchstart", this.touchStartHandler, { passive: !0 }), window.removeEventListener("mousedown", this.touchStartHandler), this.interceptedClicks.forEach(t => { t.target.dispatchEvent(new MouseEvent("click", { view: t.view, bubbles: !0, cancelable: !0 })) }) } _waitForPendingClicks() { return new Promise(t => { this._isClickPending ? this._pendingClickFinished = t : t() }) } _pendingClickStarted() { this._isClickPending = !0 } _pendingClickFinished() { this._isClickPending = !1 } _renameDOMAttribute(t, e, r) { t.hasAttribute && t.hasAttribute(e) && (event.target.setAttribute(r, event.target.getAttribute(e)), event.target.removeAttribute(e)) } _triggerListener() { this._removeUserInteractionListener(this), "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", this._loadEverythingNow.bind(this)) : this._loadEverythingNow() } _preconnect3rdParties() { let t = []; document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(e => { if (e.hasAttribute("src")) { let r = new URL(e.src).origin; r !== location.origin && t.push({ src: r, crossOrigin: e.crossOrigin || "module" === e.getAttribute("data-rocket-type") }) } }), t = [...new Map(t.map(t => [JSON.stringify(t), t])).values()], this._batchInjectResourceHints(t, "preconnect") } async _loadEverythingNow() { this.lastBreath = Date.now(), this._delayEventListeners(this), this._delayJQueryReady(this), this._handleDocumentWrite(), this._registerAllDelayedScripts(), this._preloadAllScripts(), await this._loadScriptsFromList(this.delayedScripts.normal), await this._loadScriptsFromList(this.delayedScripts.defer), await this._loadScriptsFromList(this.delayedScripts.async); try { await this._triggerDOMContentLoaded(), await this._triggerWindowLoad() } catch (t) { console.error(t) } window.dispatchEvent(new Event("rocket-allScriptsLoaded")), this._waitForPendingClicks().then(() => { this._replayClicks() }), this._emptyTrash() } _registerAllDelayedScripts() { document.querySelectorAll("script[type=rocketlazyloadscript]").forEach(t => { t.hasAttribute("data-rocket-src") ? t.hasAttribute("async") && !1 !== t.async ? this.delayedScripts.async.push(t) : t.hasAttribute("defer") && !1 !== t.defer || "module" === t.getAttribute("data-rocket-type") ? this.delayedScripts.defer.push(t) : this.delayedScripts.normal.push(t) : this.delayedScripts.normal.push(t) }) } async _transformScript(t) { return new Promise((await this._littleBreath(), navigator.userAgent.indexOf("Firefox/") > 0 || "" === navigator.vendor) ? e => { let r = document.createElement("script");[...t.attributes].forEach(t => { let e = t.nodeName; "type" !== e && ("data-rocket-type" === e && (e = "type"), "data-rocket-src" === e && (e = "src"), r.setAttribute(e, t.nodeValue)) }), t.text && (r.text = t.text), r.hasAttribute("src") ? (r.addEventListener("load", e), r.addEventListener("error", e)) : (r.text = t.text, e()); try { t.parentNode.replaceChild(r, t) } catch (i) { e() } } : async e => { function r() { t.setAttribute("data-rocket-status", "failed"), e() } try { let i = t.getAttribute("data-rocket-type"), n = t.getAttribute("data-rocket-src"); t.text, i ? (t.type = i, t.removeAttribute("data-rocket-type")) : t.removeAttribute("type"), t.addEventListener("load", function r() { t.setAttribute("data-rocket-status", "executed"), e() }), t.addEventListener("error", r), n ? (t.removeAttribute("data-rocket-src"), t.src = n) : t.src = "data:text/javascript;base64," + window.btoa(unescape(encodeURIComponent(t.text))) } catch (s) { r() } }) } async _loadScriptsFromList(t) { let e = t.shift(); return e && e.isConnected ? (await this._transformScript(e), this._loadScriptsFromList(t)) : Promise.resolve() } _preloadAllScripts() { this._batchInjectResourceHints([...this.delayedScripts.normal, ...this.delayedScripts.defer, ...this.delayedScripts.async], "preload") } _batchInjectResourceHints(t, e) { var r = document.createDocumentFragment(); t.forEach(t => { let i = t.getAttribute && t.getAttribute("data-rocket-src") || t.src; if (i) { let n = document.createElement("link"); n.href = i, n.rel = e, "preconnect" !== e && (n.as = "script"), t.getAttribute && "module" === t.getAttribute("data-rocket-type") && (n.crossOrigin = !0), t.crossOrigin && (n.crossOrigin = t.crossOrigin), t.integrity && (n.integrity = t.integrity), r.appendChild(n), this.trash.push(n) } }), document.head.appendChild(r) } _delayEventListeners(t) { let e = {}; function r(t, r) { !function t(r) { !e[r] && (e[r] = { originalFunctions: { add: r.addEventListener, remove: r.removeEventListener }, eventsToRewrite: [] }, r.addEventListener = function () { arguments[0] = i(arguments[0]), e[r].originalFunctions.add.apply(r, arguments) }, r.removeEventListener = function () { arguments[0] = i(arguments[0]), e[r].originalFunctions.remove.apply(r, arguments) }); function i(t) { return e[r].eventsToRewrite.indexOf(t) >= 0 ? "rocket-" + t : t } }(t), e[t].eventsToRewrite.push(r) } function i(t, e) { let r = t[e]; Object.defineProperty(t, e, { get: () => r || function () { }, set(i) { t["rocket" + e] = r = i } }) } r(document, "DOMContentLoaded"), r(window, "DOMContentLoaded"), r(window, "load"), r(window, "pageshow"), r(document, "readystatechange"), i(document, "onreadystatechange"), i(window, "onload"), i(window, "onpageshow") } _delayJQueryReady(t) { let e; function r(r) { if (r && r.fn && !t.allJQueries.includes(r)) { r.fn.ready = r.fn.init.prototype.ready = function (e) { return t.domReadyFired ? e.bind(document)(r) : document.addEventListener("rocket-DOMContentLoaded", () => e.bind(document)(r)), r([]) }; let i = r.fn.on; r.fn.on = r.fn.init.prototype.on = function () { if (this[0] === window) { function t(t) { return t.split(" ").map(t => "load" === t || 0 === t.indexOf("load.") ? "rocket-jquery-load" : t).join(" ") } "string" == typeof arguments[0] || arguments[0] instanceof String ? arguments[0] = t(arguments[0]) : "object" == typeof arguments[0] && Object.keys(arguments[0]).forEach(e => { delete Object.assign(arguments[0], { [t(e)]: arguments[0][e] })[e] }) } return i.apply(this, arguments), this }, t.allJQueries.push(r) } e = r } r(window.jQuery), Object.defineProperty(window, "jQuery", { get: () => e, set(t) { r(t) } }) } async _triggerDOMContentLoaded() { this.domReadyFired = !0, await this._littleBreath(), document.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._littleBreath(), window.dispatchEvent(new Event("rocket-DOMContentLoaded")), await this._littleBreath(), document.dispatchEvent(new Event("rocket-readystatechange")), await this._littleBreath(), document.rocketonreadystatechange && document.rocketonreadystatechange() } async _triggerWindowLoad() { await this._littleBreath(), window.dispatchEvent(new Event("rocket-load")), await this._littleBreath(), window.rocketonload && window.rocketonload(), await this._littleBreath(), this.allJQueries.forEach(t => t(window).trigger("rocket-jquery-load")), await this._littleBreath(); let t = new Event("rocket-pageshow"); t.persisted = this.persisted, window.dispatchEvent(t), await this._littleBreath(), window.rocketonpageshow && window.rocketonpageshow({ persisted: this.persisted }) } _handleDocumentWrite() { let t = new Map; document.write = document.writeln = function (e) { let r = document.currentScript; r || console.error("WPRocket unable to document.write this: " + e); let i = document.createRange(), n = r.parentElement, s = t.get(r); void 0 === s && (s = r.nextSibling, t.set(r, s)); let a = document.createDocumentFragment(); i.setStart(a, 0), a.appendChild(i.createContextualFragment(e)), n.insertBefore(a, s) } } async _littleBreath() { Date.now() - this.lastBreath > 45 && (await this._requestAnimFrame(), this.lastBreath = Date.now()) } async _requestAnimFrame() { return document.hidden ? new Promise(t => setTimeout(t)) : new Promise(t => requestAnimationFrame(t)) } _emptyTrash() { this.trash.forEach(t => t.remove()) } static run() { let t = new RocketLazyLoadScripts; t._addUserInteractionListener(t) } } RocketLazyLoadScripts.run();</script>
+
+    <meta name='robots' content='max-image-preview:large' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- This site is optimized with the Yoast SEO Premium plugin v15.7 - https://yoast.com/wordpress/plugins/seo/ -->
+    <title>130 Interesting Debate Topics for Kids of All Ages | EverythingMom</title>
+    <link rel="stylesheet"
+        href="https://www.everythingmom.com/wp-content/cache/min/1/a9caa624e972a60b6a9c27b85f910d6c.css" media="all"
+        data-minify="1" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://www.everythingmom.com/parenting/education/debate-topics-for-kids" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="130 Interesting Debate Topics for Kids of All Ages | EverythingMom" />
+    <meta property="og:description"
+        content="130 Interesting debate questions for kids to get them thinking and growing through different opinions and ideas." />
+    <meta property="og:url" content="https://www.everythingmom.com/parenting/education/debate-topics-for-kids" />
+    <meta property="og:site_name" content="EverythingMom" />
+    <meta property="article:publisher" content="https://www.facebook.com/EverythingMom" />
+    <meta property="article:published_time" content="2021-02-16T10:34:23+00:00" />
+    <meta property="article:modified_time" content="2022-11-12T06:07:21+00:00" />
+    <meta property="og:image"
+        content="https://www.everythingmom.com/wp-content/uploads/2021/02/debate-topics-for-kids.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Michele Tripple">
+    <meta name="twitter:label2" content="Est. reading time">
+    <meta name="twitter:data2" content="8 minutes">
+    <script type="application/ld+json"
+        class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.everythingmom.com/#organization","name":"EverythingMom","url":"https://www.everythingmom.com/","sameAs":["https://www.facebook.com/EverythingMom","https://instagram.com/everythingmom","https://www.youtube.com/user/EverythingMomVideos","https://www.pinterest.com/everythingmom/","https://twitter.com/everythingmom"],"logo":{"@type":"ImageObject","@id":"https://www.everythingmom.com/#logo","inLanguage":"en-US","url":"https://www.everythingmom.com/wp-content/uploads/2017/09/em-logo.png","width":286,"height":40,"caption":"EverythingMom"},"image":{"@id":"https://www.everythingmom.com/#logo"}},{"@type":"WebSite","@id":"https://www.everythingmom.com/#website","url":"https://www.everythingmom.com/","name":"EverythingMom","description":"Expert Advice and Inspiration for Moms","publisher":{"@id":"https://www.everythingmom.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":"https://www.everythingmom.com/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#primaryimage","inLanguage":"en-US","url":"https://www.everythingmom.com/wp-content/uploads/2021/02/debate-topics-for-kids.jpg","width":1200,"height":600,"caption":"debate topics for kids"},{"@type":"WebPage","@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#webpage","url":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids","name":"130 Interesting Debate Topics for Kids of All Ages | EverythingMom","isPartOf":{"@id":"https://www.everythingmom.com/#website"},"primaryImageOfPage":{"@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#primaryimage"},"datePublished":"2021-02-16T10:34:23+00:00","dateModified":"2022-11-12T06:07:21+00:00","inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.everythingmom.com/parenting/education/debate-topics-for-kids"]}]},{"@type":"Article","@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#article","isPartOf":{"@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#webpage"},"author":{"@id":"https://www.everythingmom.com/#/schema/person/881ba7677c89baf93e4c36fde905f7d1"},"headline":"130 Interesting Debate Topics for Kids of All Ages","datePublished":"2021-02-16T10:34:23+00:00","dateModified":"2022-11-12T06:07:21+00:00","mainEntityOfPage":{"@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#webpage"},"commentCount":0,"publisher":{"@id":"https://www.everythingmom.com/#organization"},"image":{"@id":"https://www.everythingmom.com/parenting/education/debate-topics-for-kids#primaryimage"},"articleSection":"Education","inLanguage":"en-US","potentialAction":[{"@type":"CommentAction","name":"Comment","target":["https://www.everythingmom.com/parenting/education/debate-topics-for-kids#respond"]}]},{"@type":"Person","@id":"https://www.everythingmom.com/#/schema/person/881ba7677c89baf93e4c36fde905f7d1","name":"Michele Tripple","image":{"@type":"ImageObject","@id":"https://www.everythingmom.com/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/3279eac391c8619627ee1ae0c975d725?s=96&d=mm&r=g","caption":"Michele Tripple"},"sameAs":["https://micheletripple.com/","https://www.linkedin.com/in/michele-tripple-77325561/"]}]}</script>
+    <!-- / Yoast SEO Premium plugin. -->
+
+
+    <!-- Social Pug v.2.7.3 https://devpups.com/social-pug/ -->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="130 Interesting Debate Topics for Kids of All Ages" />
+    <meta property="og:description"
+        content="130 Interesting debate questions for kids to get them thinking and growing through different opinions and ideas. " />
+    <meta property="og:url" content="https://www.everythingmom.com/parenting/education/debate-topics-for-kids" />
+    <meta property="og:site_name" content="EverythingMom" />
+    <meta property="og:updated_time" content="2022-11-12T00:07:21+00:00" />
+    <meta property="article:published_time" content="2021-02-16T04:34:23+00:00" />
+    <meta property="article:modified_time" content="2022-11-12T00:07:21+00:00" />
+    <meta property="og:image"
+        content="https://www.everythingmom.com/wp-content/uploads/2021/02/debate-topics-for-kids.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="600" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="130 Interesting Debate Topics for Kids of All Ages" />
+    <meta name="twitter:description"
+        content="130 Interesting debate questions for kids to get them thinking and growing through different opinions and ideas. " />
+    <meta name="twitter:image"
+        content="https://www.everythingmom.com/wp-content/uploads/2021/02/debate-topics-for-kids.jpg" />
+    <!-- Social Pug v.2.7.3 https://devpups.com/social-pug/ -->
+    <link rel='dns-prefetch' href='//wander-media.ck.page' />
+    <link rel='dns-prefetch' href='//scripts.mediavine.com' />
+
+
+    <link rel='dns-prefetch' href='//ajax.googleapis.com' />
+    <link rel='dns-prefetch' href='//apis.google.com' />
+    <link rel='dns-prefetch' href='//google-analytics.com' />
+    <link rel='dns-prefetch' href='//www.google-analytics.com' />
+    <link rel='dns-prefetch' href='//ssl.google-analytics.com' />
+
+
+    <link rel="alternate" type="application/rss+xml" title="EverythingMom &raquo; Feed"
+        href="https://www.everythingmom.com/feed" />
+    <link rel="alternate" type="application/rss+xml" title="EverythingMom &raquo; Comments Feed"
+        href="https://www.everythingmom.com/comments/feed" />
+    <link rel="alternate" type="application/rss+xml"
+        title="EverythingMom &raquo; 130 Interesting Debate Topics for Kids of All Ages Comments Feed"
+        href="https://www.everythingmom.com/parenting/education/debate-topics-for-kids/feed" />
+    <style>
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 0.07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+
+
+
+
+
+    <style id='global-styles-inline-css'>
+        body {
+            --wp--preset--color--black: #000000;
+            --wp--preset--color--cyan-bluish-gray: #abb8c3;
+            --wp--preset--color--white: #ffffff;
+            --wp--preset--color--pale-pink: #f78da7;
+            --wp--preset--color--vivid-red: #cf2e2e;
+            --wp--preset--color--luminous-vivid-orange: #ff6900;
+            --wp--preset--color--luminous-vivid-amber: #fcb900;
+            --wp--preset--color--light-green-cyan: #7bdcb5;
+            --wp--preset--color--vivid-green-cyan: #00d084;
+            --wp--preset--color--pale-cyan-blue: #8ed1fc;
+            --wp--preset--color--vivid-cyan-blue: #0693e3;
+            --wp--preset--color--vivid-purple: #9b51e0;
+            --wp--preset--color--contrast: var(--contrast);
+            --wp--preset--color--contrast-2: var(--contrast-2);
+            --wp--preset--color--contrast-3: var(--contrast-3);
+            --wp--preset--color--base: var(--base);
+            --wp--preset--color--base-2: var(--base-2);
+            --wp--preset--color--base-3: var(--base-3);
+            --wp--preset--color--accent: var(--accent);
+            --wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%);
+            --wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg, rgb(122, 220, 180) 0%, rgb(0, 208, 130) 100%);
+            --wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg, rgba(252, 185, 0, 1) 0%, rgba(255, 105, 0, 1) 100%);
+            --wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg, rgba(255, 105, 0, 1) 0%, rgb(207, 46, 46) 100%);
+            --wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg, rgb(238, 238, 238) 0%, rgb(169, 184, 195) 100%);
+            --wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg, rgb(74, 234, 220) 0%, rgb(151, 120, 209) 20%, rgb(207, 42, 186) 40%, rgb(238, 44, 130) 60%, rgb(251, 105, 98) 80%, rgb(254, 248, 76) 100%);
+            --wp--preset--gradient--blush-light-purple: linear-gradient(135deg, rgb(255, 206, 236) 0%, rgb(152, 150, 240) 100%);
+            --wp--preset--gradient--blush-bordeaux: linear-gradient(135deg, rgb(254, 205, 165) 0%, rgb(254, 45, 45) 50%, rgb(107, 0, 62) 100%);
+            --wp--preset--gradient--luminous-dusk: linear-gradient(135deg, rgb(255, 203, 112) 0%, rgb(199, 81, 192) 50%, rgb(65, 88, 208) 100%);
+            --wp--preset--gradient--pale-ocean: linear-gradient(135deg, rgb(255, 245, 203) 0%, rgb(182, 227, 212) 50%, rgb(51, 167, 181) 100%);
+            --wp--preset--gradient--electric-grass: linear-gradient(135deg, rgb(202, 248, 128) 0%, rgb(113, 206, 126) 100%);
+            --wp--preset--gradient--midnight: linear-gradient(135deg, rgb(2, 3, 129) 0%, rgb(40, 116, 252) 100%);
+            --wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');
+            --wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');
+            --wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');
+            --wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');
+            --wp--preset--duotone--midnight: url('#wp-duotone-midnight');
+            --wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');
+            --wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');
+            --wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');
+            --wp--preset--font-size--small: 13px;
+            --wp--preset--font-size--medium: 20px;
+            --wp--preset--font-size--large: 36px;
+            --wp--preset--font-size--x-large: 42px;
+            --wp--preset--spacing--20: 0.44rem;
+            --wp--preset--spacing--30: 0.67rem;
+            --wp--preset--spacing--40: 1rem;
+            --wp--preset--spacing--50: 1.5rem;
+            --wp--preset--spacing--60: 2.25rem;
+            --wp--preset--spacing--70: 3.38rem;
+            --wp--preset--spacing--80: 5.06rem;
+        }
+
+        :where(.is-layout-flex) {
+            gap: 0.5em;
+        }
+
+        body .is-layout-flow>.alignleft {
+            float: left;
+            margin-inline-start: 0;
+            margin-inline-end: 2em;
+        }
+
+        body .is-layout-flow>.alignright {
+            float: right;
+            margin-inline-start: 2em;
+            margin-inline-end: 0;
+        }
+
+        body .is-layout-flow>.aligncenter {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        body .is-layout-constrained>.alignleft {
+            float: left;
+            margin-inline-start: 0;
+            margin-inline-end: 2em;
+        }
+
+        body .is-layout-constrained>.alignright {
+            float: right;
+            margin-inline-start: 2em;
+            margin-inline-end: 0;
+        }
+
+        body .is-layout-constrained>.aligncenter {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        body .is-layout-constrained> :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+            max-width: var(--wp--style--global--content-size);
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        body .is-layout-constrained>.alignwide {
+            max-width: var(--wp--style--global--wide-size);
+        }
+
+        body .is-layout-flex {
+            display: flex;
+        }
+
+        body .is-layout-flex {
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        body .is-layout-flex>* {
+            margin: 0;
+        }
+
+        :where(.wp-block-columns.is-layout-flex) {
+            gap: 2em;
+        }
+
+        .has-black-color {
+            color: var(--wp--preset--color--black) !important;
+        }
+
+        .has-cyan-bluish-gray-color {
+            color: var(--wp--preset--color--cyan-bluish-gray) !important;
+        }
+
+        .has-white-color {
+            color: var(--wp--preset--color--white) !important;
+        }
+
+        .has-pale-pink-color {
+            color: var(--wp--preset--color--pale-pink) !important;
+        }
+
+        .has-vivid-red-color {
+            color: var(--wp--preset--color--vivid-red) !important;
+        }
+
+        .has-luminous-vivid-orange-color {
+            color: var(--wp--preset--color--luminous-vivid-orange) !important;
+        }
+
+        .has-luminous-vivid-amber-color {
+            color: var(--wp--preset--color--luminous-vivid-amber) !important;
+        }
+
+        .has-light-green-cyan-color {
+            color: var(--wp--preset--color--light-green-cyan) !important;
+        }
+
+        .has-vivid-green-cyan-color {
+            color: var(--wp--preset--color--vivid-green-cyan) !important;
+        }
+
+        .has-pale-cyan-blue-color {
+            color: var(--wp--preset--color--pale-cyan-blue) !important;
+        }
+
+        .has-vivid-cyan-blue-color {
+            color: var(--wp--preset--color--vivid-cyan-blue) !important;
+        }
+
+        .has-vivid-purple-color {
+            color: var(--wp--preset--color--vivid-purple) !important;
+        }
+
+        .has-black-background-color {
+            background-color: var(--wp--preset--color--black) !important;
+        }
+
+        .has-cyan-bluish-gray-background-color {
+            background-color: var(--wp--preset--color--cyan-bluish-gray) !important;
+        }
+
+        .has-white-background-color {
+            background-color: var(--wp--preset--color--white) !important;
+        }
+
+        .has-pale-pink-background-color {
+            background-color: var(--wp--preset--color--pale-pink) !important;
+        }
+
+        .has-vivid-red-background-color {
+            background-color: var(--wp--preset--color--vivid-red) !important;
+        }
+
+        .has-luminous-vivid-orange-background-color {
+            background-color: var(--wp--preset--color--luminous-vivid-orange) !important;
+        }
+
+        .has-luminous-vivid-amber-background-color {
+            background-color: var(--wp--preset--color--luminous-vivid-amber) !important;
+        }
+
+        .has-light-green-cyan-background-color {
+            background-color: var(--wp--preset--color--light-green-cyan) !important;
+        }
+
+        .has-vivid-green-cyan-background-color {
+            background-color: var(--wp--preset--color--vivid-green-cyan) !important;
+        }
+
+        .has-pale-cyan-blue-background-color {
+            background-color: var(--wp--preset--color--pale-cyan-blue) !important;
+        }
+
+        .has-vivid-cyan-blue-background-color {
+            background-color: var(--wp--preset--color--vivid-cyan-blue) !important;
+        }
+
+        .has-vivid-purple-background-color {
+            background-color: var(--wp--preset--color--vivid-purple) !important;
+        }
+
+        .has-black-border-color {
+            border-color: var(--wp--preset--color--black) !important;
+        }
+
+        .has-cyan-bluish-gray-border-color {
+            border-color: var(--wp--preset--color--cyan-bluish-gray) !important;
+        }
+
+        .has-white-border-color {
+            border-color: var(--wp--preset--color--white) !important;
+        }
+
+        .has-pale-pink-border-color {
+            border-color: var(--wp--preset--color--pale-pink) !important;
+        }
+
+        .has-vivid-red-border-color {
+            border-color: var(--wp--preset--color--vivid-red) !important;
+        }
+
+        .has-luminous-vivid-orange-border-color {
+            border-color: var(--wp--preset--color--luminous-vivid-orange) !important;
+        }
+
+        .has-luminous-vivid-amber-border-color {
+            border-color: var(--wp--preset--color--luminous-vivid-amber) !important;
+        }
+
+        .has-light-green-cyan-border-color {
+            border-color: var(--wp--preset--color--light-green-cyan) !important;
+        }
+
+        .has-vivid-green-cyan-border-color {
+            border-color: var(--wp--preset--color--vivid-green-cyan) !important;
+        }
+
+        .has-pale-cyan-blue-border-color {
+            border-color: var(--wp--preset--color--pale-cyan-blue) !important;
+        }
+
+        .has-vivid-cyan-blue-border-color {
+            border-color: var(--wp--preset--color--vivid-cyan-blue) !important;
+        }
+
+        .has-vivid-purple-border-color {
+            border-color: var(--wp--preset--color--vivid-purple) !important;
+        }
+
+        .has-vivid-cyan-blue-to-vivid-purple-gradient-background {
+            background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;
+        }
+
+        .has-light-green-cyan-to-vivid-green-cyan-gradient-background {
+            background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;
+        }
+
+        .has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background {
+            background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;
+        }
+
+        .has-luminous-vivid-orange-to-vivid-red-gradient-background {
+            background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;
+        }
+
+        .has-very-light-gray-to-cyan-bluish-gray-gradient-background {
+            background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;
+        }
+
+        .has-cool-to-warm-spectrum-gradient-background {
+            background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;
+        }
+
+        .has-blush-light-purple-gradient-background {
+            background: var(--wp--preset--gradient--blush-light-purple) !important;
+        }
+
+        .has-blush-bordeaux-gradient-background {
+            background: var(--wp--preset--gradient--blush-bordeaux) !important;
+        }
+
+        .has-luminous-dusk-gradient-background {
+            background: var(--wp--preset--gradient--luminous-dusk) !important;
+        }
+
+        .has-pale-ocean-gradient-background {
+            background: var(--wp--preset--gradient--pale-ocean) !important;
+        }
+
+        .has-electric-grass-gradient-background {
+            background: var(--wp--preset--gradient--electric-grass) !important;
+        }
+
+        .has-midnight-gradient-background {
+            background: var(--wp--preset--gradient--midnight) !important;
+        }
+
+        .has-small-font-size {
+            font-size: var(--wp--preset--font-size--small) !important;
+        }
+
+        .has-medium-font-size {
+            font-size: var(--wp--preset--font-size--medium) !important;
+        }
+
+        .has-large-font-size {
+            font-size: var(--wp--preset--font-size--large) !important;
+        }
+
+        .has-x-large-font-size {
+            font-size: var(--wp--preset--font-size--x-large) !important;
+        }
+
+        .wp-block-navigation a:where(:not(.wp-element-button)) {
+            color: inherit;
+        }
+
+        :where(.wp-block-columns.is-layout-flex) {
+            gap: 2em;
+        }
+
+        .wp-block-pullquote {
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+    </style>
+
+
+
+    <style id='spai-fadein-inline-css'>
+        img[data-spai] {
+            opacity: 0;
+        }
+
+        div.woocommerce-product-gallery img[data-spai] {
+            opacity: 1;
+        }
+
+        img[data-spai-egr],
+        img[data-spai-upd] {
+            transition: opacity .5s linear .2s;
+            -webkit-transition: opacity .5s linear .2s;
+            -moz-transition: opacity .5s linear .2s;
+            -o-transition: opacity .5s linear .2s;
+            opacity: 1;
+        }
+    </style>
+
+    <style id='wpxpo-global-style-inline-css'>
+        :root {
+            --preset-color1: #037fff;
+            --preset-color2: #026fe0;
+            --preset-color3: #071323;
+            --preset-color4: #132133;
+            --preset-color5: #34495e;
+            --preset-color6: #787676;
+            --preset-color7: #f0f2f3;
+            --preset-color8: #f8f9fa;
+            --preset-color9: #ffffff;
+        }
+    </style>
+
+
+    <style id='generate-style-inline-css'>
+        @media (max-width:768px) {
+
+            .main-navigation .menu-toggle,
+            .main-navigation .mobile-bar-items,
+            .sidebar-nav-mobile:not(#sticky-placeholder) {
+                display: block;
+            }
+
+            .main-navigation ul,
+            .gen-sidebar-nav {
+                display: none;
+            }
+
+            [class*="nav-float-"] .site-header .inside-header>* {
+                float: none;
+                clear: both;
+            }
+        }
+
+        .dynamic-author-image-rounded {
+            border-radius: 100%;
+        }
+
+        .dynamic-featured-image,
+        .dynamic-author-image {
+            vertical-align: middle;
+        }
+
+        .one-container.blog .dynamic-content-template:not(:last-child),
+        .one-container.archive .dynamic-content-template:not(:last-child) {
+            padding-bottom: 0px;
+        }
+
+        .dynamic-entry-excerpt>p:last-child {
+            margin-bottom: 0px;
+        }
+    </style>
+
+
+
+
+
+
+    <style id='rocket-lazyload-inline-css'>
+        .rll-youtube-player {
+            position: relative;
+            padding-bottom: 56.23%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        .rll-youtube-player:focus-within {
+            outline: 2px solid currentColor;
+            outline-offset: 5px;
+        }
+
+        .rll-youtube-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background: 0 0
+        }
+
+        .rll-youtube-player img {
+            bottom: 0;
+            display: block;
+            left: 0;
+            margin: auto;
+            max-width: 100%;
+            width: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            border: none;
+            height: auto;
+            -webkit-transition: .4s all;
+            -moz-transition: .4s all;
+            transition: .4s all
+        }
+
+        .rll-youtube-player img:hover {
+            -webkit-filter: brightness(75%)
+        }
+
+        .rll-youtube-player .play {
+            height: 100%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            position: absolute;
+            background: url(https://cdn.shortpixel.ai/spai/w_1920+q_lossy+ret_img+to_webp/https://www.everythingmom.com/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat center;
+            background-color: transparent !important;
+            cursor: pointer;
+            border: none;
+        }
+
+        .wp-embed-responsive .wp-has-aspect-ratio .rll-youtube-player {
+            position: absolute;
+            padding-bottom: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0
+        }
+    </style>
+    <script src='https://www.everythingmom.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.1' id='jquery-core-js'
+        defer></script>
+    <script src='https://www.everythingmom.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2'
+        id='jquery-migrate-js' defer></script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/announcer/public/js/script.js?ver=1679030457'
+        id='announcer-js-js' defer></script>
+    <script async="async" data-noptimize="1" data-cfasync="false"
+        src='https://scripts.mediavine.com/tags/everything-mom-new-owners.js?ver=6.1.1'
+        id='mv-script-wrapper-js'></script>
+    <script id='dpsp-frontend-js-pro-js-before'>
+        var dpsp_pin_button_data = { "pin_description_source": "post_pinterest_description", "button_position": "top_left", "button_shape": "rectangular", "minimum_image_width": "266", "minimum_image_height": "325", "button_text_label": "", "button_share_behavior": "hover_image", "pinterest_button_share_behavior": "post_image" }
+
+    </script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/social-pug/assets/js/front-end-pro.js?ver=1679030457'
+        id='dpsp-frontend-js-pro-js'></script>
+    <link rel="https://api.w.org/" href="https://www.everythingmom.com/wp-json/" />
+    <link rel="alternate" type="application/json" href="https://www.everythingmom.com/wp-json/wp/v2/posts/48473" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.everythingmom.com/xmlrpc.php?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml"
+        href="https://www.everythingmom.com/wp-includes/wlwmanifest.xml" />
+    <meta name="generator" content="WordPress 6.1.1" />
+    <link rel='shortlink' href='https://www.everythingmom.com/?p=48473' />
+    <link rel="alternate" type="application/json+oembed"
+        href="https://www.everythingmom.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.everythingmom.com%2Fparenting%2Feducation%2Fdebate-topics-for-kids" />
+    <link rel="alternate" type="text/xml+oembed"
+        href="https://www.everythingmom.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.everythingmom.com%2Fparenting%2Feducation%2Fdebate-topics-for-kids&#038;format=xml" />
+    <style type="text/css" data-source="Social Pug"></style>
+    <style></style>
+
+    <link rel="pingback" href="https://www.everythingmom.com/xmlrpc.php">
+
+    <!-- Meta Pixel Code -->
+    <script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+</script>
+    <!-- End Meta Pixel Code -->
+    <script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+  fbq('init', '300472707545188', {}, {
+    "agent": "wordpress-6.1.1-3.0.8"
+});
+  </script>
+    <script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+  fbq('track', 'PageView', []);
+  </script>
+    <!-- Meta Pixel Code -->
+    <noscript>
+        <img height="1" width="1" style="display:none" alt="fbpx"
+            src="https://www.facebook.com/tr?id=300472707545188&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="rocketlazyloadscript" async
+        data-rocket-src="https://www.googletagmanager.com/gtag/js?id=UA-1409639-3"></script>
+    <script type="rocketlazyloadscript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1409639-3');
+</script>
+    <meta name="am-api-token" content="4LBzTLNuL">
+    <script type="rocketlazyloadscript" async data-rocket-src="https://snippet.affilimate.io"></script>
+    <style id="wp-custom-css">
+        .covvv2 img {
+            object-fit: fill !important;
+        }
+
+        .covvv2 .gywt {
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        #primary-menu #menu-item-52677 a {
+            background-color: #5d91bf !important;
+            color: #ffffff !important;
+            border-radius: 25px !important;
+        }
+
+        .wp-container-22 {
+            margin-bottom: 0;
+        }
+
+        .wk img {
+            max-width: 215px !important;
+            height: 500px !important;
+        }
+
+        .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column:not(:first-child) {
+            margin-left: 0;
+        }
+
+        .wp-container-9 {
+            column-gap: 0 !important;
+        }
+
+        .site-logo {
+            height: auto;
+            max-width: 40%;
+        }
+
+        /*-------- Nav ------*/
+        .site-header .inside-header {
+            padding: 20px 40px 10px 40px;
+        }
+
+        #site-navigation {
+            margin-bottom: 0 !important;
+            margin-top: -10px;
+        }
+
+        .main-navigation .main-nav ul li a,
+        .menu-toggle,
+        .main-navigation .mobile-bar-items a {
+            line-height: 30px;
+        }
+
+        #menu-main-nav {
+            padding-bottom: 30px;
+        }
+
+        /*------ Homepage ------*/
+        .cov1 {
+            min-height: 750px !important;
+        }
+
+        .cov1 img {
+            object-fit: fill !important;
+        }
+
+        .cov2 {
+            min-height: 750px !important;
+        }
+
+        .cov2 img {
+            object-fit: fill !important;
+        }
+
+        .hn {
+            margin-top: 50px !important;
+            margin-bottom: -20px;
+        }
+
+        .hn1 {
+            margin-top: 50px !important;
+            margin-bottom: -20px;
+        }
+
+        #nmbr {
+            font-size: 72px;
+        }
+
+        .sec1 {
+            margin-bottom: 20px
+        }
+
+        .rn a {
+            border-radius: 10px !important;
+            padding: 0px 15px !important;
+        }
+
+        .vts h2 {
+            font-family: Montserrat;
+            text-transform: uppercase;
+            font-size: 36px !important;
+        }
+
+
+        .mfb img {
+            margin-bottom: -82px;
+        }
+
+        .gowt {
+            padding-right: 80px;
+        }
+
+        .shopn a {
+            border-radius: 0;
+        }
+
+        .cm11 {
+            margin-left: 30px;
+            margin-right: 20px;
+
+        }
+
+        .hn1 {
+            margin-left: 20px;
+            margin-right: 30px;
+        }
+
+        .pbi {
+            max-width: 90%;
+            height: 525px;
+            margin-left: 50px;
+        }
+
+
+        /*----- Form -----*/
+        #wpforms-51754 ::placeholder {
+            color: #e5e4e2;
+        }
+
+        #wpforms-51754 #wpforms-51754-field_1 {
+            border: none !important;
+            height: 40px;
+        }
+
+        #wpforms-51754 #wpforms-51754-field_2 {
+            border: none !important;
+            height: 40px;
+        }
+
+        #wpforms-51754 .fm-button {
+            background-color: #5e92bf;
+            color: #ffffff;
+            text-transform: uppercase;
+            padding: 6px 30px;
+        }
+
+        #home-subs button {
+            border-radius: 0px !important;
+        }
+
+
+        /*----------*/
+        @media screen and (min-width:968px) {
+            .covvv {
+                display: none !important;
+            }
+        }
+
+        /*----- Mobile -----*/
+        @media screen and (max-width:768px) {
+            .site-logo {
+                height: auto;
+                max-width: 100%;
+            }
+
+            .site-header .inside-header {
+                padding: 20px 40px 10px 40px;
+            }
+
+            .menu-toggle {
+                padding-bottom: 20px;
+            }
+
+            .cov1 {
+                min-height: 550px !important;
+            }
+
+            .cov2 {
+                min-height: 550px !important;
+            }
+
+            .hn {
+                margin-top: 50px !important;
+                margin-bottom: 0px;
+            }
+
+            .hn1 {
+                margin-top: 50px !important;
+                margin-bottom: 0px;
+            }
+
+            .cov1 {
+                background-color: #000000;
+                opacity: 1;
+            }
+
+            .cov2 {
+                background-color: #000000;
+                opacity: 1;
+            }
+
+            .mfb img {
+                margin-bottom: 0px;
+            }
+
+            .gowt {
+                padding-right: 0px;
+            }
+
+            .shopn a {
+                margin-top: 20px
+            }
+
+            .wk img {
+                height: 375px;
+                max-width: 150px;
+            }
+
+            .cm11 {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+
+            .hn1 {
+                margin-left: 0px !important;
+                margin-right: 0px !important;
+            }
+
+        }
+
+
+        /*----- Tab -----*/
+        @media screen and (max-width:968px) {
+            .covvv2 .gywt {
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+
+            .covvv2 {
+                display: none !important;
+            }
+
+            .pbi {
+                max-width: 100%;
+                height: auto;
+                margin-left: 0px;
+            }
+
+            .wk img {
+                height: 400px !important;
+                max-width: 150px !important;
+            }
+
+            .gowt {
+                padding-right: 0px;
+            }
+
+            .hn {
+                margin-top: 50px !important;
+                margin-bottom: 0px;
+            }
+
+            .hn1 {
+                margin-top: 50px !important;
+                margin-bottom: 0px;
+            }
+
+            .cm11 {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .hn1 {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
+
+        /*-----------------------*/
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        .top-nav {
+            list-style: none
+        }
+
+        .top-nav li {
+            display: inline-block;
+            padding: 10px 10px !important
+        }
+
+        .top-nav li:first-child {
+            border-right: 1px solid #fff;
+        }
+
+        #lsi_widget-2 {
+            padding: 8px 0 0 0;
+        }
+
+        /* #site-navigation{ border-top:1px solid #e5e5e5;  border-bottom:1px solid #e5e5e5; }
+#site-navigation li a{ border-top:3px solid transparent}
+#site-navigation li:hover a{ border-top:3px solid #5586b6}
+#site-navigation li .sub-menu{border-top:3px solid #5586b6}
+#site-navigation li .sub-menu a{ border-top:0!important; border-bottom:1px solid #fff; font-family: "Source Sans Pro", Arial, Helvetica, sans-serif; font-weight: 400; font-size: 15px;}
+.footer-widgets{ background-position:center;}
+.footer-widgets .menu li a{ font-size:22px; color:#3bafbf;}
+.footer-widgets .menu li{border-bottom:1px solid #e7e7e7}
+.footer-widgets .menu li a:before{content:"\203A"; padding-right:8px; font-size:30px;}*/
+        /* .home .wp-show-posts-image{float:left; width:45%; margin:0 20px 20px 0;}
+.home .wp-show-posts-entry-title a{color:#2200cc;}
+.home .wp-show-posts-entry-title:hover a{color:#3bafbf}
+.home .wp-show-posts-entry-summary{float:left; width:50%;}
+#search-2 .widget-title{ font-size:13px; letter-spacing:1.5px}
+.home h1{ font-weight:700; font-size:46px;} */
+        .single .inside-article h2 {
+            font-size: 46px;
+            font-weight: bold;
+        }
+
+        blockquote {
+            border-color: #3bafbf !important;
+            background: #f6f6f6;
+            font-size: 22px;
+        }
+
+        blockquote cite {
+            color: #6c7781;
+            font-size: 13px;
+        }
+
+        blockquote p {
+            margin-bottom: 0;
+        }
+
+        .category .inside-article .post-image {
+            float: left;
+            width: 40%;
+            margin: 0 20px 20px 0;
+        }
+
+        .category .inside-article .entry-summary {
+            margin: 10px auto 0;
+            float: left;
+            width: 55%;
+        }
+
+        .category .inside-article .entry-meta span {
+            display: inline-block;
+            padding-right: 12px;
+            font-size: 13px;
+            color: #000;
+        }
+
+        #search-2 .search-field {
+            font-size: 16px;
+        }
+
+        textarea {
+            max-height: 150px;
+        }
+
+        #custom_html-4 input {
+            color: rgb(0, 0, 0);
+            border-color: rgb(227, 227, 227);
+            border-radius: 4px;
+            font-weight: 400;
+            background: #ffffff;
+            font-size: 15px;
+            padding: 12px;
+            border: 1px solid #e3e3e3;
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #custom_html-4 button {
+            color: rgb(255, 255, 255);
+            background-color: rgb(22, 119, 190);
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .top-bar .search-field {
+            font-size: 15px;
+        }
+
+        #nav_menu-4 {
+            padding-top: 12px;
+        }
+
+        #primary-menu #menu-item-33181 {
+            background: #A8C1D8 !important;
+            border-radius: 10px;
+        }
+
+        #primary-menu #menu-item-33181 a:after {
+            content: " ";
+            height: 27px;
+            width: 28px;
+            background: url("https://cdn.shortpixel.ai/spai/w_1920+q_lossy+ret_img+to_webp/https://www.everythingmom.com/wp-content/uploads/2020/07/cart.png")no-repeat center;
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 10px
+        }
+
+        .ft1 {
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .ft2 {
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .ft3 {
+            text-align: center;
+        }
+
+        .ft3 a {
+            font-size: 11px;
+            padding: 0 10px;
+        }
+
+        #footer-widgets ul li a {
+            font-size: 12px;
+        }
+
+        .footer-widget-1 {
+            width: 30%;
+        }
+
+        .footer-widget-2,
+        .footer-widget-3,
+        .footer-widget-4 {
+            width: 22%;
+        }
+
+        .site-info {
+            display: none;
+        }
+
+        #site-navigation {
+            margin-bottom: 20px;
+        }
+
+        .h2-one {
+            font-size: 30px;
+            color: #5D91BF;
+            font-weight: 500;
+        }
+
+        .top2-post img {
+            object-fit: cover !important;
+            width: 98.7% !important;
+            height: 245px !important;
+        }
+
+        .wp-show-posts-image img {
+            border: 4px solid #ccc;
+        }
+
+        .top2-post .wp-show-posts-image {
+            margin-bottom: 0;
+        }
+
+        .top2-post .wp-show-posts-entry-header {
+            background: #A8C1D8;
+        }
+
+        .top2-post .wp-show-posts-entry-header a {
+            color: #4D4D51;
+            font-size: 24px;
+            font-weight: 500;
+            padding: 20px;
+            display: block;
+        }
+
+        .top2-post .wp-show-posts-entry-summary p {
+            font-size: 18px !important;
+            font-weight: 300 !important;
+            font-family: "Montserrat" !important
+        }
+
+        .wpsp-read-more a {
+            font-size: 21px !important;
+            color: #fff !important;
+            background: #5D91BF;
+            border-radius: 10px;
+            border: none !important;
+            padding: 0 30px !important;
+        }
+
+        .top2-post {
+            margin-bottom: 0 !important;
+        }
+
+        .wp-show-posts-image img {
+            object-fit: cover !important;
+            width: 100%;
+            height: 168px;
+        }
+
+        .page-id-15328 .wp-show-posts-entry-title {
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .page-id-15328 .wp-show-posts-entry-summary p {
+            font-size: 14px;
+        }
+
+        .mail-section h2 {
+            font-size: 48px;
+        }
+
+        #home-subs button {
+            font-size: 21px !important;
+            color: #fff !important;
+            background: #5D91BF;
+            border-radius: 10px;
+            border: none !important;
+            padding: 5px 20px !important;
+            display: block;
+        }
+
+        #home-subs input {
+            background: #fff;
+            display: block;
+            font-size: 14px;
+            border: 2px solid #ccc;
+            max-width: 383px;
+            width: 100%;
+            margin: 0 0 15px;
+        }
+
+        .lp {
+            font-weight: 30px;
+            font-weight: 300;
+        }
+
+        .lp-group,
+        .lp-group .wp-block-columns,
+        .lp-group h2,
+        .lp-group p,
+        .wp-block-group,
+        .wp-block-cover {
+            margin-bottom: 0 !important;
+        }
+
+        .ems {
+            font-size: 48px;
+            margin-bottom: 0;
+        }
+
+        .ww {
+            color: #5D91BF;
+            font-size: 36px;
+            font-weight: 500;
+            margin: 30px auto 0;
+            overflow: hidden
+        }
+
+        .ww span {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ww span:before {
+            content: "";
+            height: 4px;
+            background: #2F2F2F;
+            width: 400px;
+            position: absolute;
+            left: -445px;
+            top: 50%;
+        }
+
+        .ww span:after {
+            content: "";
+            height: 4px;
+            background: #2F2F2F;
+            width: 400px;
+            position: absolute;
+            right: -445px;
+            top: 50%;
+        }
+
+        @media screen and (max-width:768px) {
+
+            /* 	.home h1{ font-size:30px;}
+	.home .wp-show-posts-image,.category .inside-article .post-image{ float:none; width:100%; margin:0 auto;}
+	.home .wp-show-posts-entry-summary,.category .inside-article .entry-summary{ float:none; width:100%;} */
+            .mail-section h2 {
+                font-size: 30px;
+            }
+
+            .mail-section .wp-block-group__inner-container {
+                padding: 0;
+            }
+
+            .ems {
+                font-size: 26px;
+            }
+
+            .shop-section {
+                background: #5D91BF !important;
+            }
+
+            .ww {
+                font-size: 30px;
+            }
+
+            .ww span:after,
+            .ww span:before {
+                display: none;
+            }
+
+            .preg p {
+                font-size: 16px;
+            }
+        }
+
+
+
+        /*Mediavine Sidebar Fix End*/
+
+        /*Convertica Table*/
+        .cnntbl2-container {
+            max-width: 1500px !important;
+            margin: 0 auto !important;
+        }
+
+        .cnntbl2-table {
+            border-spacing: 0 !important;
+            font-family: 'Raleway', sans-serif !important;
+            width: 100% !important;
+            border: none;
+            border-collapse: unset;
+            color: #000000;
+            line-height: 1.5 !important;
+        }
+
+        .cnntbl2-table__thead {
+            background-color: #566473 !important;
+            color: #FFFFFF !important;
+            font-weight: bold;
+            text-transform: uppercase !important;
+            padding: 7px 7px !important;
+        }
+
+        .cnntbl2-table__thead th {
+            padding: 5px !important;
+            background: #082A49 !important;
+            border: none !important;
+            font-size: 18px !important;
+            font-weight: 700 !important;
+            text-align: center;
+            line-height: 1.2em !important;
+            color: #fff !important;
+        }
+
+        .cnntbl2-table__thead th:first-child {
+            border-top-left-radius: 0px !important;
+            border: none !important;
+            text-align: center;
+            font-size: 18px;
+            padding: 5px !important;
+            width: 20%;
+        }
+
+        .cnntbl2-table__thead th:last-child {
+            border-top-right-radius: 0px !important;
+            width: 35%;
+        }
+
+        .cnntbl2-table__thead-image {
+            width: 20%
+        }
+
+        .cnntbl2-table__thead-product {
+            width: 45%;
+        }
+
+        .cnntbl2-table__column-image {
+            background: #ffffff;
+            text-align: center;
+            border-left: 1px solid #E6E6E6 !important;
+            border-bottom: 1px solid #E6E6E6 !important;
+            border-right: none !important;
+            width: 20%;
+            vertical-align: middle;
+            padding: 5px !important;
+        }
+
+        .cnntbl2-table__column-imagebadge {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cnntbl2-table__image {
+            margin: 0px;
+            padding: 5px 5px;
+            vertical-align: middle !important;
+        }
+
+        img.cnntbl2-table__image {
+            max-width: 90%;
+            max-height: 100px;
+            margin: auto;
+        }
+
+        .cnntbl2-table__column-button {
+            background: #ffffff;
+            border-right: 1px solid #E6E6E6 !important;
+            border-bottom: 1px solid #E6E6E6 !important;
+            border-left: none !important;
+            width: 30%;
+            vertical-align: middle;
+            text-align: center;
+            padding: 0px 10px !important;
+        }
+
+        .cnntbl2-table__column-product {
+            background: #ffffff;
+            border-bottom: 1px solid #E6E6E6 !important;
+            border-left: none !important;
+            width: 50%;
+            vertical-align: middle;
+            padding: 5px !important;
+            border-right: none !important;
+        }
+
+        .cnntbl2-table__column-title {
+            font-family: 'raleway', sans-serif !important;
+            text-align: left;
+            color: #81121F;
+            font-size: 18px;
+            font-weight: 700;
+            display: block;
+            line-height: 1.2em;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        .cnntbl2-table__button {
+            background-color: #BA2033;
+            border-bottom: 3px solid #954428;
+            word-wrap: normal;
+            display: block;
+            margin: 5px auto;
+            line-height: 1.2em;
+            text-decoration: none !important;
+            text-transform: uppercase;
+            color: #fff !important;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700 !important;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            border-radius: 6px;
+            padding: 11px 12px;
+            width: 170px;
+            max-width: 95%;
+            text-align: center;
+            transition: .2s linear;
+
+
+        }
+
+
+        .cnntbl2-table__button:hover {
+            background-color: #FF1112 !important;
+            box-shadow: rgba(3, 3, 3, 0.4) 0px 8px 12px 0px !important;
+        }
+
+
+
+
+        .cnntbl2-table__button-review {
+            word-wrap: normal;
+
+            display: block;
+            margin: 5px auto;
+            line-height: 1.2em;
+            text-decoration: underline !important;
+            text-transform: uppercase;
+            color: #1477EB !important;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600 !important;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+            border-radius: 6px;
+            padding: 5px 12px;
+            width: 170px;
+            max-width: 95%;
+            text-align: center;
+            transition: .2s linear;
+
+
+        }
+
+
+        .cnntbl2-table__button-review:hover {
+            color: #32c5ff !important;
+
+        }
+
+
+
+
+
+
+        ul.cnntbl2-table__features-list {
+            margin: 0 0 0 25px !important;
+            padding: 0 0 0 10px !important;
+        }
+
+        .cnntbl2-table__features-list li {
+            margin: 0 !important;
+            padding: 0 !important;
+            list-style: disc !important;
+            font-family: 'raleway', sans-serif;
+            font-size: 14px !important;
+            font-weight: 400;
+            color: #424242;
+            line-height: 1.4em;
+        }
+
+
+
+        .awr-i ul li:before {
+
+            display: none;
+        }
+
+
+
+        .cnntbl2-table__features-item {
+            line-height: 1.2em;
+            font-size: 16px;
+            font-family: 'raleway', sans-serif !important;
+            font-weight: normal;
+            list-style-type: square !important;
+            color: #FF6100;
+            word-break: keep-all;
+            margin: 0px !important;
+        }
+
+        li.cnntbl2-table__features-item {
+            margin-left: 25px !important;
+        }
+
+        .cnntbl2-table__features-item:empty {
+            display: none;
+        }
+
+        .cnntbl2-table__link {
+            width: 100%;
+            display: block;
+            text-decoration: none !important;
+        }
+
+        .cnntbl2-table__features-list li:before {
+
+            display: none;
+
+        }
+
+        ul.cnntbl2-table__features-list li:before {
+            display: none !important;
+        }
+
+        .cnntbl2-table__link:active,
+        .cnntbl2-table__link:visited {
+            color: none;
+        }
+
+        span.cnntbl2-table__features-item {
+            color: #000;
+        }
+
+
+        .cnntbl2-table__link-label {
+            margin: auto 0 5px -15px;
+            position: relative;
+            text-transform: uppercase;
+            background: #4C5FC1;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, .2);
+            border: 2px solid #4C5FC1;
+            padding: 4px 16px;
+            clear: both;
+            color: #fff;
+            float: left;
+            font-weight: 700;
+            font-size: 13px !important;
+            word-break: keep-all;
+            border-radius: 6px;
+            line-height: 1;
+            width: max-content;
+            width: -moz-max-content;
+        }
+
+        .cnntbl2-table__link-label span {
+            margin: auto;
+        }
+
+
+
+        .cnntbl2-table__column-label {
+            display: none;
+        }
+
+        .cnntbl2-table__link-label:empty {
+            display: none;
+        }
+
+        .cnntbl2-table__link-label-mobile:empty {
+            display: none;
+        }
+
+        a.cnntbl2-table__column-title {
+            text-decoration: underline;
+            color: #245DA8;
+        }
+
+        a.cnntbl2-table__button:empty {
+            display: none !important;
+        }
+
+        span.cnntbl2-table__textlink {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 1.2em;
+            color: #245DA8;
+            text-decoration: underline;
+        }
+
+        span.cnntbl2-table__textlink:hover {
+            color: #2e7ce2;
+        }
+
+        .cnntbl2-table__container-badgeproductname {
+            display: flex;
+            flex-direction: column;
+        }
+
+        a.cnntbl2-table__productname {
+            color: #2e7ce2;
+        }
+
+        a.cnntbl2-table__productname:hover {
+            color: #539dff;
+        }
+
+        @media screen and (max-width: 860px) {
+
+            .cnntbl2-table__thead-image,
+            .cnntbl2-table__thead-details,
+            .cnntbl2-table__thead th:last-child {
+                display: none;
+            }
+
+            .cnntbl2-container {
+                padding: 0px;
+                padding-bottom: 40px;
+            }
+
+            .cnntbl2-table__thead-product {
+                text-align: center !important;
+                padding: 5px !important;
+                width: 100%;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+
+
+            .cnntbl2-table__button-review {
+
+                padding: 0px 11px 18px 10px;
+                font-size: 14px !important;
+
+            }
+
+            .cnntbl2-table__tbody {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .cnntbl2-table__tbody-row {
+                display: flex;
+                flex-wrap: wrap;
+                background: #fff;
+                border: 1px solid #E6E6E6;
+                border-top: none;
+            }
+
+            .cnntbl2-table__column-image {
+                order: 2;
+                width: 100%;
+                background: #ffffff;
+                box-sizing: border-box;
+                border: none !important;
+                display: flex;
+                flex-direction: column;
+                padding: 10px !important;
+                margin: auto;
+            }
+
+            li.cnntbl2-table__features-item {
+                margin-left: 0 !important;
+            }
+
+            .cnntbl2-table__column-label {
+                width: 100%;
+                order: 1;
+                border: none !important;
+                background: #ffffff;
+                text-align: center;
+                padding: 10px 5px 0px 5px !important;
+                display: flex !important;
+            }
+
+            .cnntbl2-table__column-product {
+                width: auto;
+                order: 3;
+                margin: auto;
+                box-sizing: border-box;
+                border: none !important;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .cnntbl2-table__column-button {
+                background: #ffffff;
+                padding-top: 10px !important;
+                border: none !important;
+                width: 100%;
+                order: 4;
+                min-height: 60px;
+                display: block;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .cnntbl2-table__column-features {
+                order: 4;
+                width: 55%;
+                background: #ffffff;
+                box-sizing: border-box;
+                border: none !important;
+                display: flex;
+                flex-direction: column;
+                padding: 0 10px 0 8px !important;
+                margin: auto;
+            }
+
+            .cnntbl2-table__button {
+                width: 90%;
+                max-width: 250px !important;
+                padding: 10px 0px;
+                margin-bottom: 15px;
+            }
+
+            .cnntbl2-table__column-title {
+                padding: 0;
+                text-align: center;
+                margin: 0;
+            }
+
+            ul.cnntbl2-table__features-list {
+                margin: 10px 0 0 35px !important;
+                padding: 0 !important;
+            }
+
+            .cnntbl2-table__features-list-mobile {
+                padding-right: 10px;
+                padding-left: 10px !important;
+            }
+
+            .cnntbl2-table__link-label {
+                display: block;
+                margin: auto auto 5px;
+            }
+
+            .cnntbl2-table__link-label-mobile {
+                display: block;
+            }
+        }
+
+        /*mediavine sidebar fix*/
+        @media only screen and (min-width: 769px) {
+            .right-sidebar .content-area {
+                max-width: calc(100% - 310px) !important;
+            }
+
+            .right-sidebar .sidebar {
+                min-width: 300px !important;
+            }
+        }
+
+        @media only screen and (max-width: 359px) {
+            .inside-article {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+        }
+
+        /*end mediavine sidebar fix*/
+
+
+
+        /* CUSTOM BLOCKQUOTE */
+        blockquote {
+            width: 700px;
+            background-color: #f9f9f9;
+            border: 3px solid #f9f9f9;
+            border-radius: 6px;
+            box-shadow: 0px 0px 0px #ccc;
+            font-style: italic;
+            font-size: 22px !important;
+            padding-top: 25px !important;
+            padding-bottom: 25px !important;
+            border-left: 6px solid #000000;
+        }
+
+        blockquote::before {
+            content: none !important;
+        }
+
+        blockquote::after {
+            content: none !important;
+        }
+
+        .wp-block-uagb-icon-list .uagb-icon-list__source-icon svg {
+            fill: #f79468 !important;
+        }
+
+        .green-bg {
+            background-color: rgba(129, 215, 66, 0.2) !important;
+            *background-color: rgb(129, 215, 66) !important;
+            border: 1px solid #81d742;
+            border-radius: 1px !important;
+        }
+
+        .gray-bg {
+            margin: 30px 0;
+            background-color: #efefef;
+            border-color: #d5d5d5;
+            color: #333333;
+            margin: 0 0 1.5em;
+            border-width: 1px;
+            border-style: solid;
+            padding: 10px;
+        }
+
+        .blue-bg {
+            margin: 30px 0;
+            border-top-width: 1px !important;
+            border-right-width: 1px !important;
+            border-bottom-width: 1px !important;
+            border-left-width: 1px !important;
+            padding-top: 10px !important;
+            padding-right: 20px !important;
+            padding-bottom: 10px !important;
+            padding-left: 20px !important;
+            background-color: rgba(30, 115, 190, 0.2) !important;
+            *background-color: rgb(30, 115, 190) !important;
+            border-left-color: rgba(30, 115, 190, 0.6) !important;
+            border-left-style: solid !important;
+            border-right-color: rgba(30, 115, 190, 0.6) !important;
+            border-right-style: solid !important;
+            border-top-color: rgba(30, 115, 190, 0.6) !important;
+            border-top-style: solid !important;
+            border-bottom-color: rgba(30, 115, 190, 0.6) !important;
+            border-bottom-style: solid !important;
+        }
+
+        .yellow-bg {
+            margin: 30px 0;
+            border-top-width: 1px !important;
+            border-right-width: 1px !important;
+            border-bottom-width: 1px !important;
+            border-left-width: 1px !important;
+            padding-top: 10px !important;
+            padding-right: 20px !important;
+            padding-bottom: 10px !important;
+            padding-left: 20px !important;
+            background-color: rgba(237, 237, 0, 0.2) !important;
+            *background-color: rgb(237, 237, 0) !important;
+            border-left-color: rgba(237, 237, 0, 0.93) !important;
+            border-left-style: solid !important;
+            border-right-color: rgba(237, 237, 0, 0.93) !important;
+            border-right-style: solid !important;
+            border-top-color: rgba(237, 237, 0, 0.93) !important;
+            border-top-style: solid !important;
+            border-bottom-color: rgba(237, 237, 0, 0.93) !important;
+            border-bottom-style: solid !important;
+        }
+
+        .border-blue {
+            border: 1px solid #2c97df;
+        }
+
+        .green-dashed-border {
+            background-color: rgba(129, 215, 66, 0.2) !important;
+            border: 3px dashed #81d742 !important;
+        }
+
+        .uagb-icon-list__label {
+            font-family: Roboto;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .post .content-area article a {
+            text-decoration: underline;
+        }
+
+        .home .content-area article a {
+            text-decoration: none !important;
+        }
+
+        .wp-block-atomic-blocks-ab-column figure.wp-block-image,
+        .vc_box_border {
+            padding: 6px 6px 0 6px;
+            background-color: #ebebeb;
+        }
+
+        .wp-block-button a {
+            width: 100%;
+        }
+
+        .category .inside-article .entry-title {
+            font-size: 22px;
+            line-height: 1.3;
+        }
+
+        /*responsive*/
+        @media screen and (max-width:768px) {
+            #site-navigation {
+                margin: 0 auto;
+            }
+
+            .hd-title,
+            .hd-title2 {
+                font-size: 30px;
+            }
+
+            .wp-block-group__inner-container {
+                padding: 10px;
+            }
+
+            .top2-post .wp-show-posts-entry-title {
+                width: 100%;
+            }
+
+            .top2-post .wpsp-read-more {
+                position: static;
+            }
+
+            blockquote {
+                width: 94%;
+            }
+        }
+
+        @media screen and (max-width:480px) {
+
+            .mb-center.maxbutton-4-center .maxbutton-4-container.mb-container .maxbutton-4.maxbutton.maxbutton-buy-on-amazon-center-aligned,
+            .mb-center.maxbutton-1-center .maxbutton-1-container.mb-container .maxbutton-1.maxbutton.maxbutton-buy-on-amazon {
+                width: 100% !important;
+            }
+
+            #tablepress-19 td {
+                display: block;
+            }
+
+        }
+
+        .silo-cover-1:hover {
+            background-color: #221199;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .silo-cover-2:hover {
+            background-color: #221199;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .silo-cover-3:hover {
+            background-color: #221199;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .silo-cover-4:hover {
+            background-color: #221199;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .silo-cover-5:hover {
+            background-color: #221199;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .silo-cover-6:hover {
+            background-color: #221199;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .silo-cover-1 a:hover {
+            color: black;
+        }
+
+        .silo-cover-2 a:hover {
+            color: black;
+        }
+
+        .silo-cover-3 a:hover {
+            color: black;
+        }
+
+        .silo-cover-4 a:hover {
+            color: black;
+        }
+
+        .silo-cover-5 a:hover {
+            color: black;
+        }
+
+        .silo-cover-6 a:hover {
+            color: black;
+        }
+
+        .silo-title-1,
+        .p {
+            margin-bottom: 0px;
+        }
+
+        .silo-title-2,
+        .p {
+            margin-bottom: 0px;
+        }
+
+        .silo-title-3,
+        .p {
+            margin-bottom: 0px;
+        }
+
+        .silo-title-4,
+        .p {
+            margin-bottom: 0px;
+        }
+
+        .silo-title-5,
+        .p {
+            margin-bottom: 0px;
+        }
+
+        .silo-title-6,
+        .p {
+            margin-bottom: 0px;
+        }
+
+        .hero-title-1 {
+            font-size: 52px;
+            color: #fff !important;
+            margin-bottom: 0px;
+        }
+
+        .logo-101 {
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .background-img101 {
+            z-index: ;
+        }
+
+        .hero-section101 {
+            padding-left: 200px;
+            padding-right: 150px;
+        }
+
+        .landing-heading {
+            font-family: "britannic-bold";
+            font-size: 45px;
+            padding-right: 150px;
+        }
+
+        .landing-para {
+            font-family: "Arial";
+            font-size: 20px;
+            padding-right: 80px;
+        }
+
+        .btn-101 {
+            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+            font-size: 30px;
+        }
+
+        .btn-102 {
+            font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+            font-size: 30px;
+            margin-left: -30px;
+        }
+
+        .button,
+        .wp-block-button .wp-block-button__link {
+            padding: 0px 25px;
+        }
+
+        .landing-col1 {
+            padding-bottom: 40px;
+        }
+
+        .box-shadow-1 {
+            background-color: #dcdbdb78;
+            padding: 15px;
+            border-radius: 25px;
+            padding-bottom: 0px;
+            margin-right: 50px;
+            margin-top: -70px;
+        }
+
+        .shadow-box-para {
+            background-color: white;
+            padding: 15px;
+            font-family: Ubuntu Regular;
+        }
+
+        .landing-bullet100 {
+            margin-top: 30px;
+            margin-left: 30px;
+            font-size: 16px;
+            font-family: Ubuntu Regular;
+        }
+
+        .landing-bullet101 {
+            font-size: 16px;
+            font-family: Ubuntu Regular;
+            margin-top: -25px;
+            margin-left: 80px;
+        }
+
+        .landing-bullet102 {
+            margin-top: 180px;
+            margin-left: 30px;
+            font-size: 16px;
+            font-family: Ubuntu Regular;
+        }
+
+        .logo-heading101 {
+            font-family: Ubuntu;
+        }
+
+        .landing-hero102 {
+            padding-left: 70px;
+            padding-right: 70px;
+        }
+    </style>
+
+    <script data-minify="1" src="https://www.everythingmom.com/wp-content/cache/min/1/snippet.min.js?ver=1679030457"
+        defer></script>
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+    jQuery(document).ready(function( $ ) {
+	  var ale_on_click_checkbox_is_checked="1";
+	  if(typeof Georiot !== "undefined")
+	  {
+		if(ale_on_click_checkbox_is_checked) {
+			Georiot.amazon.addOnClickRedirect(44711, false);
+		}
+		else {
+			Georiot.amazon.convertToGeoRiotLinks(44711, false);
+		};
+	  };
+    });
+  });</script>
+    <noscript>
+        <style id="rocket-lazyload-nojs-css">
+            .rll-youtube-player,
+            [data-lazy-src] {
+                display: none !important;
+            }
+        </style>
+    </noscript>
+    <link href="https://cdn.shortpixel.ai" rel="preconnect" crossorigin>
+</head>
+
+<body
+    class="post-template-default single single-post postid-48473 single-format-standard wp-custom-logo wp-embed-responsive post-image-above-header post-image-aligned-center right-sidebar nav-below-header separate-containers fluid-header active-footer-widgets-4 nav-aligned-center header-aligned-center dropdown-hover featured-image-active"
+    itemtype="https://schema.org/Blog" itemscope>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-dark-grayscale">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0 0.49803921568627" />
+                    <feFuncG type="table" tableValues="0 0.49803921568627" />
+                    <feFuncB type="table" tableValues="0 0.49803921568627" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-grayscale">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0 1" />
+                    <feFuncG type="table" tableValues="0 1" />
+                    <feFuncB type="table" tableValues="0 1" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-purple-yellow">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0.54901960784314 0.98823529411765" />
+                    <feFuncG type="table" tableValues="0 1" />
+                    <feFuncB type="table" tableValues="0.71764705882353 0.25490196078431" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-blue-red">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0 1" />
+                    <feFuncG type="table" tableValues="0 0.27843137254902" />
+                    <feFuncB type="table" tableValues="0.5921568627451 0.27843137254902" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-midnight">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0 0" />
+                    <feFuncG type="table" tableValues="0 0.64705882352941" />
+                    <feFuncB type="table" tableValues="0 1" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-magenta-yellow">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0.78039215686275 1" />
+                    <feFuncG type="table" tableValues="0 0.94901960784314" />
+                    <feFuncB type="table" tableValues="0.35294117647059 0.47058823529412" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-purple-green">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0.65098039215686 0.40392156862745" />
+                    <feFuncG type="table" tableValues="0 1" />
+                    <feFuncB type="table" tableValues="0.44705882352941 0.4" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none"
+        style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;">
+        <defs>
+            <filter id="wp-duotone-blue-orange">
+                <feColorMatrix color-interpolation-filters="sRGB" type="matrix"
+                    values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " />
+                <feComponentTransfer color-interpolation-filters="sRGB">
+                    <feFuncR type="table" tableValues="0.098039215686275 1" />
+                    <feFuncG type="table" tableValues="0 0.66274509803922" />
+                    <feFuncB type="table" tableValues="0.84705882352941 0.41960784313725" />
+                    <feFuncA type="table" tableValues="1 1" />
+                </feComponentTransfer>
+                <feComposite in2="SourceGraphic" operator="in" />
+            </filter>
+        </defs>
+    </svg>
+    <script type='text/javascript'>
+
+        function updateConfig() {
+            var eventsFilter = "Microdata,SubscribedButtonClick";
+            var eventsFilterList = eventsFilter.split(',');
+            fbq.instance.pluginConfig.set("300472707545188", 'openbridge',
+                {
+                    'endpoints':
+                        [{
+                            'targetDomain': window.location.href,
+                            'endpoint': window.location.href + '.open-bridge'
+                        }],
+                    'eventsFilter': {
+                        'eventNames': eventsFilterList,
+                        'filteringMode': 'blocklist'
+                    }
+                }
+            );
+            fbq.instance.configLoaded("300472707545188");
+        }
+
+        window.onload = function () {
+            var s = document.createElement('script');
+            s.setAttribute('src', "https://www.everythingmom.com/wp-content/plugins/official-facebook-pixel/core/../js/openbridge_plugin.js");
+            s.setAttribute('onload', 'updateConfig()');
+            document.body.appendChild(s);
+        }
+    </script><a class="screen-reader-text skip-link" href="#content" title="Skip to content">Skip to content</a>
+    <header class="site-header" id="masthead" aria-label="Site" itemtype="https://schema.org/WPHeader" itemscope>
+        <div class="inside-header grid-container grid-parent">
+            <div class="site-logo">
+                <a href="https://www.everythingmom.com/" rel="home" data-wpel-link="internal">
+                    <img width="5700" height="1079" class="header-image is-logo-image" alt="EverythingMom"
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NzAwIDEwNzkiIHdpZHRoPSI1NzAwIiBoZWlnaHQ9IjEwNzkiIGRhdGEtdT0iaHR0cHMlM0ElMkYlMkZ3d3cuZXZlcnl0aGluZ21vbS5jb20lMkZ3cC1jb250ZW50JTJGdXBsb2FkcyUyRjIwMjIlMkYwNSUyRkVNb20tMjAyMi1WZWN0b3IucG5nIiBkYXRhLXc9IjU3MDAiIGRhdGEtaD0iMTA3OSIgZGF0YS1iaXA9IiI+PC9zdmc+"
+                        data-spai="1" />
+                </a>
+            </div>
+        </div>
+    </header>
+    <nav class="main-navigation sub-menu-right" id="site-navigation" aria-label="Primary"
+        itemtype="https://schema.org/SiteNavigationElement" itemscope>
+        <div class="inside-navigation grid-container grid-parent">
+            <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+                <span class="mobile-menu">Menu</span> </button>
+            <div id="primary-menu" class="main-nav">
+                <ul id="menu-main-nav" class=" menu sf-menu">
+                    <li id="menu-item-31885"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-31885">
+                        <a href="https://www.everythingmom.com/parenting/riddles-and-brain-teasers-for-kids"
+                            data-wpel-link="internal">RIDDLES<span role="presentation"
+                                class="dropdown-menu-toggle"></span></a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-39076"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-39076"><a
+                                    href="https://www.everythingmom.com/riddles/what-is-a-riddle"
+                                    data-wpel-link="internal">What is a Riddle?</a></li>
+                            <li id="menu-item-39075"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-39075"><a
+                                    href="https://www.everythingmom.com/riddles/what-am-i-riddles-with-answers"
+                                    data-wpel-link="internal">&#8220;What Am I?&#8221; Riddles</a></li>
+                            <li id="menu-item-39077"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-39077"><a
+                                    href="https://www.everythingmom.com/activities/riddle-me-this"
+                                    data-wpel-link="internal">Riddle Me This</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-item-31886"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-31886">
+                        <a href="https://www.everythingmom.com/activities/60-jokes-to-make-kids-laugh"
+                            data-wpel-link="internal">JOKES<span role="presentation"
+                                class="dropdown-menu-toggle"></span></a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-39078"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-39078"><a
+                                    href="https://www.everythingmom.com/activities/knock-for-laughs"
+                                    data-wpel-link="internal">Knock-Knock Jokes</a></li>
+                            <li id="menu-item-39079"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-39079"><a
+                                    href="https://www.everythingmom.com/activities/silly-jokes"
+                                    data-wpel-link="internal">Silly Jokes</a></li>
+                            <li id="menu-item-39080"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-39080"><a
+                                    href="https://www.everythingmom.com/parenting/dad-jokes"
+                                    data-wpel-link="internal">Dad Jokes</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-item-31998"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-31998"><a
+                            href="https://www.everythingmom.com/activities/50-tongue-twisters-for-family-fun"
+                            data-wpel-link="internal">TONGUE TWISTERS</a></li>
+                    <li id="menu-item-15540"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-15540">
+                        <a href="https://www.everythingmom.com/pregnancy-week-by-week/weeks-pregnant-how-many-weeks-pregnant"
+                            data-wpel-link="internal">PREGNANCY CALENDAR<span role="presentation"
+                                class="dropdown-menu-toggle"></span></a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-32630"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children menu-item-32630">
+                                <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/1-week-pregnant-trying-to-conceive"
+                                    data-wpel-link="internal">Weeks 1-10<span role="presentation"
+                                        class="dropdown-menu-toggle"></span></a>
+                                <ul class="sub-menu">
+                                    <li id="menu-item-32626"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32626">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/1-week-pregnant-trying-to-conceive"
+                                            data-wpel-link="internal">1 Week Pregnant</a></li>
+                                    <li id="menu-item-32625"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32625">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/2-weeks-pregnant-getting-pregnant-and-charting-menstrual-cycle"
+                                            data-wpel-link="internal">2 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32624"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32624">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/3-weeks-pregnant-early-pregnancy-symptoms"
+                                            data-wpel-link="internal">3 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32623"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32623">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/4-weeks-pregnant-home-pregnancy-test"
+                                            data-wpel-link="internal">4 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32622"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32622">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/5-weeks-pregnant-natural-pregnancy"
+                                            data-wpel-link="internal">5 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32621"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32621">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/6-weeks-pregnant-morning-sickness"
+                                            data-wpel-link="internal">6 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32620"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32620">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/7-weeks-pregnant-pregnancy-constipation"
+                                            data-wpel-link="internal">7 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32619"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32619">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/8-weeks-pregnant-prenatal-testing"
+                                            data-wpel-link="internal">8 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32615"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32615">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/9-weeks-pregnant-weight-gain-during-pregnancy"
+                                            data-wpel-link="internal">9 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32614"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32614">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/10-weeks-pregnant-fetal-heart-rate"
+                                            data-wpel-link="internal">10 Weeks Pregnant</a></li>
+                                </ul>
+                            </li>
+                            <li id="menu-item-32627"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children menu-item-32627">
+                                <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/11-weeks-pregnant-pregnancy-cravings"
+                                    data-wpel-link="internal">Weeks 11-20<span role="presentation"
+                                        class="dropdown-menu-toggle"></span></a>
+                                <ul class="sub-menu">
+                                    <li id="menu-item-32613"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32613">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/11-weeks-pregnant-pregnancy-cravings"
+                                            data-wpel-link="internal">11 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32631"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32631">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/12-weeks-pregnant-pregnancy-clothes"
+                                            data-wpel-link="internal">12 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32612"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32612">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/13-weeks-pregnant-acne-during-pregnancy"
+                                            data-wpel-link="internal">13 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32611"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32611">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/14-weeks-pregnant-pregnancy-sex"
+                                            data-wpel-link="internal">14 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32610"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32610">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/15-weeks-pregnant-amniocentesis"
+                                            data-wpel-link="internal">15 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32609"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32609">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/16-weeks-pregnant-pregnancy-exercise"
+                                            data-wpel-link="internal">16 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32608"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32608">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/17-weeks-pregnant-baby-kicks"
+                                            data-wpel-link="internal">17 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32607"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32607">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/18-weeks-pregnant-pregnancy-ultrasound"
+                                            data-wpel-link="internal">18 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32606"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32606">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/19-weeks-pregnant-almost-halfway"
+                                            data-wpel-link="internal">19 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32604"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32604">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/20-weeks-pregnant-pregnancy-massage"
+                                            data-wpel-link="internal">20 Weeks Pregnant</a></li>
+                                </ul>
+                            </li>
+                            <li id="menu-item-32629"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children menu-item-32629">
+                                <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/21-weeks-pregnant-pregnancy-sleep"
+                                    data-wpel-link="internal">Weeks 21-30<span role="presentation"
+                                        class="dropdown-menu-toggle"></span></a>
+                                <ul class="sub-menu">
+                                    <li id="menu-item-32603"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32603">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/21-weeks-pregnant-pregnancy-sleep"
+                                            data-wpel-link="internal">21 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32602"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32602">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/22-weeks-pregnant-pregnancy-pounds"
+                                            data-wpel-link="internal">22 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32601"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32601">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/23-weeks-pregnant-bleeding-gums-in-pregnancy"
+                                            data-wpel-link="internal">23 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32600"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32600">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/24-weeks-pregnant-pregnancy-pain"
+                                            data-wpel-link="internal">24 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32598"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32598">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/25-weeks-pregnant-pregnancy-glucose-test"
+                                            data-wpel-link="internal">25 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32599"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32599">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/26-weeks-pregnant-pregnancy-swelling"
+                                            data-wpel-link="internal">26 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32597"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32597">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/27-weeks-pregnant-pregnancy-abdominal-pain"
+                                            data-wpel-link="internal">27 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32596"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32596">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/28-weeks-pregnant-leg-pain-during-pregnancy"
+                                            data-wpel-link="internal">28 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32595"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32595">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/29-weeks-pregnant-leaking-breast-during-pregnancy"
+                                            data-wpel-link="internal">29 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32594"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32594">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/30-weeks-pregnant-delivery-bag"
+                                            data-wpel-link="internal">30 Weeks Pregnant</a></li>
+                                </ul>
+                            </li>
+                            <li id="menu-item-32628"
+                                class="menu-item menu-item-type-post_type menu-item-object-post menu-item-has-children menu-item-32628">
+                                <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/31-weeks-pregnant-preeclampsia-in-pregnancy"
+                                    data-wpel-link="internal">Weeks 31-40<span role="presentation"
+                                        class="dropdown-menu-toggle"></span></a>
+                                <ul class="sub-menu">
+                                    <li id="menu-item-32593"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32593">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/31-weeks-pregnant-preeclampsia-in-pregnancy"
+                                            data-wpel-link="internal">31 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32592"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32592">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/32-weeks-pregnant-fetal-kick-counts"
+                                            data-wpel-link="internal">32 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32591"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32591">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/33-weeks-pregnant-pregnancy-depression"
+                                            data-wpel-link="internal">33 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32590"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32590">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/34-weeks-pregnant-early-signs-of-labor"
+                                            data-wpel-link="internal">34 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32589"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32589">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/35-weeks-pregnant-group-b-streptococcus"
+                                            data-wpel-link="internal">35 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32588"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32588">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/36-weeks-pregnant-pregnancy-calendar-at-36-weeks"
+                                            data-wpel-link="internal">36 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32587"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32587">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/37-weeks-pregnant-pregnancy-cleaning"
+                                            data-wpel-link="internal">37 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32586"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32586">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/38-weeks-pregnant-baby-engaged"
+                                            data-wpel-link="internal">38 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32585"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32585">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/39-weeks-pregnant-braxton-hicks-contractions"
+                                            data-wpel-link="internal">39 Weeks Pregnant</a></li>
+                                    <li id="menu-item-32584"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-32584">
+                                        <a href="https://www.everythingmom.com/pregancy/pregnancy-calendar/40-weeks-pregnant-pregnancy-labor"
+                                            data-wpel-link="internal">40 Weeks Pregnant</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id="menu-item-15234"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-15234">
+                        <a>PARENT + PLAY<span role="presentation" class="dropdown-menu-toggle"></span></a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-15253"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-15253"><a
+                                    href="https://www.everythingmom.com/category/activities"
+                                    data-wpel-link="internal">Activities</a></li>
+                            <li id="menu-item-15408"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-15408">
+                                <a href="https://www.everythingmom.com/category/parenting/education"
+                                    data-wpel-link="internal">Education</a></li>
+                            <li id="menu-item-15265"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-15265">
+                                <a href="https://www.everythingmom.com/category/parenting"
+                                    data-wpel-link="internal">Parenting</a></li>
+                            <li id="menu-item-42339"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-42339"><a
+                                    href="https://www.everythingmom.com/category/parenting/breastfeeding"
+                                    data-wpel-link="internal">Breastfeeding</a></li>
+                            <li id="menu-item-42338"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-42338"><a
+                                    href="https://www.everythingmom.com/category/activities/crafts-for-kids"
+                                    data-wpel-link="internal">Crafts for Kids</a></li>
+                        </ul>
+                    </li>
+                    <li id="menu-item-44244"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-44244"><a
+                            href="https://www.everythingmom.com/category/reviews" data-wpel-link="internal">REVIEWS</a>
+                    </li>
+                    <li id="menu-item-52677"
+                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-52677"><a
+                            href="https://www.etsy.com/shop/EverythingmomStore" data-wpel-link="external"
+                            target="_blank" rel="external noopener noreferrer">SHOP</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="site grid-container container hfeed grid-parent" id="page">
+        <div class="site-content" id="content">
+
+            <div class="content-area grid-parent mobile-grid-100 grid-70 tablet-grid-70" id="primary">
+                <main class="site-main" id="main">
+
+                    <article id="post-48473"
+                        class="post-48473 post type-post status-publish format-standard has-post-thumbnail hentry category-education mv-content-wrapper"
+                        itemtype="https://schema.org/CreativeWork" itemscope>
+                        <div class="inside-article">
+                            <div class="featured-image  page-header-image-single ">
+                                <img width="1200" height="600"
+                                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBkYXRhLXU9Imh0dHBzJTNBJTJGJTJGd3d3LmV2ZXJ5dGhpbmdtb20uY29tJTJGd3AtY29udGVudCUyRnVwbG9hZHMlMkYyMDIxJTJGMDIlMkZkZWJhdGUtdG9waWNzLWZvci1raWRzLmpwZyIgZGF0YS13PSIxMjAwIiBkYXRhLWg9IjYwMCIgZGF0YS1iaXA9IiI+PC9zdmc+"
+                                    data-spai="1" class="attachment-full size-full" alt="debate topics for kids"
+                                    decoding="async" itemprop="image" />
+                            </div>
+                            <header class="entry-header" aria-label="Content">
+                                <h1 class="entry-title" itemprop="headline">130 Interesting Debate Topics for Kids of
+                                    All Ages</h1>
+                                <div class="entry-meta">
+                                    <span class="posted-on"><time class="updated" datetime="2022-11-12T00:07:21-06:00"
+                                            itemprop="dateModified">November 12, 2022</time><time
+                                            class="entry-date published" datetime="2021-02-16T04:34:23-06:00"
+                                            itemprop="datePublished">February 16, 2021</time></span> <span
+                                        class="byline">by <span class="author vcard" itemprop="author"
+                                            itemtype="https://schema.org/Person" itemscope><a class="url fn n"
+                                                href="https://www.everythingmom.com/author/michele-tripple"
+                                                title="View all posts by Michele Tripple" rel="author" itemprop="url"
+                                                data-wpel-link="internal"><span class="author-name"
+                                                    itemprop="name">Michele Tripple</span></a></span></span>
+                                </div>
+                            </header>
+                            <p
+                                style="font-family:Georgia; font-style:italic; text-align:center; font-size:15px; margin:10px auto 0;">
+                                This post contains affiliate links. If you click and buy we may make a commission, at no
+                                additional charge to you. Please see our <a
+                                    href="https://www.everythingmom.com/privacy-policy#affiliate" target="blank"
+                                    data-wpel-link="internal"><u>disclosure policy</u></a> for more details.</p>
+                            <div class="entry-content" itemprop="text">
+                                <p class="dpsp-share-text ">Sharing is Caring!</p>
+                                <div id="dpsp-content-top"
+                                    class="dpsp-content-wrapper dpsp-shape-rectangular dpsp-size-medium dpsp-has-spacing dpsp-has-buttons-count dpsp-show-on-mobile dpsp-show-total-share-count dpsp-show-total-share-count-after dpsp-button-style-2">
+                                    <div class="dpsp-total-share-wrapper"><span
+                                            class="dpsp-icon-total-share"></span><span
+                                            class="dpsp-total-share-count">160</span><span>shares</span></div>
+                                    <ul
+                                        class="dpsp-networks-btns-wrapper dpsp-networks-btns-content dpsp-networks-btns-share dpsp-column-auto dpsp-has-button-icon-animation">
+                                        <li><a rel="nofollow noopener noreferrer external"
+                                                href="https://twitter.com/intent/tweet?text=130%20Interesting%20Debate%20Topics%20for%20Kids%20of%20All%20Ages&amp;url=https%3A%2F%2Fh2b.co%2F3WPY277&amp;via=EverythingMom"
+                                                class="dpsp-network-btn dpsp-twitter dpsp-first"
+                                                data-wpel-link="external" target="_blank"><span
+                                                    class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Twitter</span></span></a></li>
+                                        <li><a rel="nofollow noopener noreferrer external"
+                                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fh2b.co%2F3WPY277&amp;t=130%20Interesting%20Debate%20Topics%20for%20Kids%20of%20All%20Ages"
+                                                class="dpsp-network-btn dpsp-facebook" data-wpel-link="external"
+                                                target="_blank"><span class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Facebook</span></span></a></li>
+                                        <li><a rel="nofollow noopener noreferrer" data-href="#"
+                                                class="dpsp-network-btn dpsp-pinterest dpsp-has-count"
+                                                data-wpel-link="internal"><span class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Pinterest</span><span
+                                                        class="dpsp-network-count">160</span></span></a></li>
+                                        <li><a rel="nofollow noopener noreferrer"
+                                                href="/cdn-cgi/l/email-protection#a699d5d3c4ccc3c5d29b979596839496efc8d2c3d4c3d5d2cfc8c1839496e2c3c4c7d2c3839496f2c9d6cfc5d5839496c0c9d4839496edcfc2d5839496c9c0839496e7caca839496e7c1c3d580c7cbd69dc4c9c2df9bced2d2d6d58395e78394e08394e0ce94c488c5c98394e095f1f6ff949191"
+                                                class="dpsp-network-btn dpsp-email dpsp-last"><span
+                                                    class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Email</span></span></a></li>
+                                    </ul>
+                                </div><span id="dpsp-post-content-markup" data-image-pin-it="true"></span>
+                                <p>What is better, peanut butter or Nutella? What came first, the chicken or the egg?
+                                    Who was a better leader George Washington or Abraham Lincoln? With a million
+                                    questions in the world, kids (and even adults) have an opinion about all of them.
+                                    Asking questions that allow your kids to express their opinion is a healthy way for
+                                    them to learn and grow; that is why debate for kids is so powerful. That is why we
+                                    are sharing XX debate topics for kids to help them learn to express their opinion
+                                    and learn to listen to others. Between teaching your kids how to debate and
+                                    other&nbsp;<a target="_blank"
+                                        href="https://www.everythingmom.com/activities/brain-exercise-workout-brain-teaser-games"
+                                        rel="noreferrer noopener" data-wpel-link="internal">brain exercises</a>, your
+                                    child will be a well-rounded student going through school.&nbsp;&nbsp;</p>
+
+
+
+                                <h2 id="h-what-is-a-debate">What is a debate?</h2>
+
+
+
+                                <p>A debate is two or more people with a formal discussion where they each have a turn
+                                    to share their opinion. A debate is not a one-sided conversation where one person
+                                    shares and everyone listens. Still, everyone shares when it is their turn to learn
+                                    from others, hear different ideas and philosophies, and expand their knowledge for a
+                                    particular topic.&nbsp;</p>
+
+
+
+                                <h2 id="h-how-does-debating-help-kids">How does Debating help kids?</h2>
+
+
+
+                                <p>Debating helps kids in a variety of ways.&nbsp;</p>
+
+
+
+                                <h3 id="h-improves-critical-thinking">Improves Critical Thinking</h3>
+
+
+
+                                <p>Debating helps kids learn critical thinking. They can self-reflect about something
+                                    they are passionate about to understand why they feel that way. This will help them
+                                    be able to explain why they don’t like peanut butter rather than saying, “I don’t
+                                    know; I just don’t like it.”</p>
+
+
+
+                                <h3 id="h-increases-language-skills">Increases Language Skills</h3>
+
+
+
+                                <p>Debating gets kids talking and thinking all at the same time. While they are talking
+                                    and trying to articulate their point, they are gaining valuable communication skills
+                                </p>
+
+
+
+                                <h3 id="h-public-speaking-skills">Public Speaking Skills</h3>
+
+
+
+                                <p>Along with that, they are gaining public speaking skills. They learn how to
+                                    articulate how they feel about something when they are in a group of people and
+                                    maybe under a little bit of pressure. This helps gets get out of their comfort zone
+                                    and do something new.&nbsp;</p>
+
+
+
+                                <h3 id="h-listening-skills">Listening Skills</h3>
+
+
+
+                                <p>In a debate, you learn how to listen. You have to understand what the other person is
+                                    saying even if their opinion does not match yours.&nbsp;</p>
+
+
+
+                                <h3 id="h-increases-tolerance">Increases Tolerance</h3>
+
+
+
+                                <p>At a young age, kids gain tolerance for other people and their opinions. Debating
+                                    makes this possible because they begin to understand at a young age that not
+                                    everyone thinks the same way as you.&nbsp;</p>
+
+
+
+                                <h2 id="h-how-to-choose-debate-topics-for-kids">How to choose debate topics for kids?
+                                </h2>
+
+
+
+                                <p>We need to be wise when we are selecting debate topics for kids. Everyone has
+                                    different opinions and ideas, and you never want kids to leave a debate mad at one
+                                    another. Be sure that your debate questions are age-appropriate when selecting them
+                                    as well.&nbsp;</p>
+
+
+
+                                <h2 id="h-debate-topics-for-kids">Debate topics for kids</h2>
+
+
+
+                                <figure class="wp-block-image size-large"><a
+                                        href="https://www.everythingmom.com/wp-content/uploads/2021/02/debate-topic-for-kids.png"
+                                        data-wpel-link="internal"><img decoding="async" width="1024" height="512"
+                                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDYwMCIgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjAwIiBkYXRhLXU9Imh0dHBzJTNBJTJGJTJGd3d3LmV2ZXJ5dGhpbmdtb20uY29tJTJGd3AtY29udGVudCUyRnVwbG9hZHMlMkYyMDIxJTJGMDIlMkZkZWJhdGUtdG9waWMtZm9yLWtpZHMucG5nIiBkYXRhLXc9IjEyMDAiIGRhdGEtaD0iNjAwIiBkYXRhLWJpcD0iIj48L3N2Zz4="
+                                            data-spai="1" alt="Debate topics for kids" class="wp-image-48478" /></a>
+                                </figure>
+
+
+
+                                <p>Here we have listed some interesting Debate Topics suitable for all age groups. Check
+                                    them all!</p>
+
+
+
+                                <figure
+                                    class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio">
+                                    <div class="wp-block-embed__wrapper">
+                                        <div class="rll-youtube-player"
+                                            data-src="https://www.youtube.com/embed/8Ro0cjPbqks" data-id="8Ro0cjPbqks"
+                                            data-query="feature=oembed"></div><noscript><iframe
+                                                title="80 Interesting Debate Topics for Kids of All Ages" width="840"
+                                                height="473"
+                                                src="https://www.youtube.com/embed/8Ro0cjPbqks?feature=oembed"
+                                                frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe></noscript>
+                                    </div>
+                                </figure>
+
+
+
+                                <h3 id="h-debate-topics-kids-up-to-the-age-of-10">Debate Topics kids up to the
+                                    <strong>age of 10</strong></h3>
+
+
+                                <div class="wp-block-image">
+                                    <figure class="aligncenter size-large is-resized"><a
+                                            href="https://www.everythingmom.com/wp-content/uploads/2021/02/Debate-Topics-kids-up-to-the-age-of-10.jpg"
+                                            data-wpel-link="internal"><img decoding="async"
+                                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDE1MDAiIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjE1MDAiIGRhdGEtdT0iaHR0cHMlM0ElMkYlMkZ3d3cuZXZlcnl0aGluZ21vbS5jb20lMkZ3cC1jb250ZW50JTJGdXBsb2FkcyUyRjIwMjElMkYwMiUyRkRlYmF0ZS1Ub3BpY3Mta2lkcy11cC10by10aGUtYWdlLW9mLTEwLmpwZyIgZGF0YS13PSIxMDAwIiBkYXRhLWg9IjE1MDAiIGRhdGEtYmlwPSIiPjwvc3ZnPg=="
+                                                data-spai="1" alt="Debate topics for kids" class="wp-image-48477"
+                                                width="380" height="569" /></a></figure>
+                                </div>
+
+
+                                <p>These debate topics are for younger kids up to the <strong>age of 10</strong>.&nbsp;
+                                </p>
+
+
+
+                                <ol>
+                                    <li>What time should school start?</li>
+                                    <li>How long should you be able to play on electronics in a day?</li>
+                                    <li>Should shooting games be allowed?</li>
+                                    <li>Should everyone make the school sports teams?</li>
+                                    <li>Are cats or dogs better?</li>
+                                    <li>Which is better, peanut butter or Nutella?</li>
+                                    <li>Should kids be allowed to eat whatever they want?</li>
+                                    <li>Should kids be allowed to stay up as late as they want?</li>
+                                    <li>How many days should Christmas break be?</li>
+                                    <li>Should kids be given an allowance?</li>
+                                    <li>How much money is the right amount for an allowance?</li>
+                                    <li>What is better, Batman or Superman?</li>
+                                    <li>Which is better, the beach or the mountains?</li>
+                                    <li>Should pets be allowed to come to school?</li>
+                                    <li>Should everyone be allowed to get free lunch at school?</li>
+                                    <li>Which is better, homeschool or going to school?</li>
+                                    <li>How many recesses should kids have at school?</li>
+                                    <li>Should computers replace teachers?</li>
+                                    <li>Should kids wear uniforms to school?</li>
+                                    <li>Should soda be banned?</li>
+                                    <li>Should kids be able to watch whatever they want on TV?</li>
+                                    <li>Children need to make their beds every day.&nbsp;</li>
+                                    <li>Every girl should have a Barbie doll.&nbsp;</li>
+                                    <li>Little boys should not have stuffed animals.&nbsp;</li>
+                                    <li>Birthday gifts should never be expensive.&nbsp;</li>
+                                </ol>
+
+
+
+                                <p id="h-more-advance-debate-topics-ages-10-12"><strong>More Advance Debate Topics Ages
+                                        10-12</strong></p>
+
+
+
+                                <ol>
+                                    <li>Video games teach bad habits.</li>
+                                    <li>Violence comes from videogames</li>
+                                    <li>Smoking needs to be outlawed.&nbsp;</li>
+                                    <li>Everyone should have a phone.</li>
+                                    <li>Smartphones should be banned.&nbsp;</li>
+                                    <li>Everyone should eat family dinner together.&nbsp;</li>
+                                    <li>Kids are growing up too fast.&nbsp;</li>
+                                    <li>Kids are overscheduled.</li>
+                                    <li>Each child in the house should have to make dinner once a week.&nbsp;</li>
+                                    <li>Homework should be outlawed.&nbsp;</li>
+                                    <li>The school day should be shorter.&nbsp;</li>
+                                    <li>There should be consequences when siblings fight.&nbsp;</li>
+                                    <li>Kids should play outside more.&nbsp;</li>
+                                    <li>Should kids be able to listen to whatever they want?</li>
+                                    <li>Kids should be allowed to be on social media.</li>
+                                    <li>Parents have no right to look at their kid’s phones.</li>
+                                    <li>Is it ever okay to cheat?</li>
+                                    <li>What should happen to a bully?</li>
+                                    <li>Should YouTube be outlawed or regulated better?</li>
+                                    <li>Should kids be punished?&nbsp;</li>
+                                    <li>Kids should never be spanked.&nbsp;</li>
+                                    <li>Zoos harm animals.</li>
+                                    <li>Why are the Olympics important?</li>
+                                    <li>What should the age be to vote?</li>
+                                    <li>What is the right way to disagree with someone?</li>
+                                    <li>Should you be able to buy junk food at the cafeteria?</li>
+                                    <li>Lunches from home should be regulated as to what you can bring.&nbsp;</li>
+                                    <li>Kids are required to save 15% of what they earn for college.&nbsp;</li>
+                                    <li>Is social media addiction?&nbsp;</li>
+                                    <li>Apps should be able to charge money for you to play them.&nbsp;</li>
+                                    <li>Every household needs a pet.</li>
+                                    <li>Kids must exercise every day for 30 minutes.&nbsp;</li>
+                                    <li>Kids should be allowed to have their phones with them at school.&nbsp;</li>
+                                    <li>Sleepovers should be against the law.&nbsp;</li>
+                                    <li>The egg came first.&nbsp;</li>
+                                </ol>
+
+
+
+                                <h3 id="h-debate-topics-for-middle-schoolers">Debate Topics for Middle Schoolers</h3>
+
+
+                                <div class="wp-block-image">
+                                    <figure class="aligncenter size-large is-resized"><a
+                                            href="https://www.everythingmom.com/wp-content/uploads/2021/02/Debate-Topics-for-Middle-Schoolers.jpg"
+                                            data-wpel-link="internal"><img decoding="async"
+                                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDE1MDAiIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjE1MDAiIGRhdGEtdT0iaHR0cHMlM0ElMkYlMkZ3d3cuZXZlcnl0aGluZ21vbS5jb20lMkZ3cC1jb250ZW50JTJGdXBsb2FkcyUyRjIwMjElMkYwMiUyRkRlYmF0ZS1Ub3BpY3MtZm9yLU1pZGRsZS1TY2hvb2xlcnMuanBnIiBkYXRhLXc9IjEwMDAiIGRhdGEtaD0iMTUwMCIgZGF0YS1iaXA9IiI+PC9zdmc+"
+                                                data-spai="1" alt="Debate Topics for Middle Schoolers"
+                                                class="wp-image-48475" width="383" height="574" /></a></figure>
+                                </div>
+
+
+                                <p>These are great debate questions for middle school-aged kids.&nbsp;</p>
+
+
+
+                                <ol>
+                                    <li>All kids should play a sport.&nbsp;</li>
+                                    <li>Museums should be free.</li>
+                                    <li>If you are failing, you need to go to Saturday school.&nbsp;</li>
+                                    <li>There should be punishments for bullies.&nbsp;</li>
+                                    <li>Kids should wear uniforms.&nbsp;</li>
+                                    <li>Global warming is a real thing.&nbsp;</li>
+                                    <li>Government is too big.&nbsp;</li>
+                                    <li>School should be during the summer.&nbsp;</li>
+                                    <li>Each child should have the same amount of chores.&nbsp;</li>
+                                    <li>If you play sports, you shouldn’t need to do chores.&nbsp;</li>
+                                    <li>All kids should have a job.&nbsp;</li>
+                                    <li>Kids can go on vacation with their friends without parental supervision.&nbsp;
+                                    </li>
+                                    <li>Kids should be allowed to drink.&nbsp;</li>
+                                    <li>The rich should give money to the poor.&nbsp;</li>
+                                    <li>Children should have no rules.&nbsp;</li>
+                                    <li>Movie stars are heroes</li>
+                                    <li>Professional sports should be outlawed.&nbsp;</li>
+                                    <li>Peer pressure is a good thing.&nbsp;</li>
+                                    <li>Aliens exist.&nbsp;</li>
+                                    <li>Everyone should be a vegetarian.&nbsp;</li>
+                                    <li>School-age kids should not dye their hair.&nbsp;</li>
+                                    <li>School-aged kids should not have fake nails.&nbsp;</li>
+                                    <li>Pen and paper should be outlawed and replaced with digital products.</li>
+                                    <li>Anyone should be able to run for president.&nbsp;</li>
+                                    <li>Grades in middle school do matter later in life.&nbsp;</li>
+                                    <li>Plastic should be prohibited.&nbsp;</li>
+                                    <li>Everyone should learn to play an instrument.&nbsp;</li>
+                                    <li>It should be mandatory for everyone in the United States to be able to speak
+                                        English.&nbsp;</li>
+                                    <li>Corporal punishment is a good thing and should be enforced.&nbsp;</li>
+                                    <li>War is good.&nbsp;</li>
+                                    <li>Kids should be able to buy whatever they want.</li>
+                                    <li>Tests should be banned.&nbsp;</li>
+                                    <li>Kids should drive at 14.&nbsp;</li>
+                                    <li>Tap water or bottled water?</li>
+                                    <li>Everyone should know how to swim.&nbsp;</li>
+                                </ol>
+
+
+
+                                <h3 id="h-debate-questions-for-high-schoolers">Debate Questions for High schoolers</h3>
+
+
+                                <div class="wp-block-image">
+                                    <figure class="aligncenter size-large is-resized"><a
+                                            href="https://www.everythingmom.com/wp-content/uploads/2021/02/Debate-Questions-for-High-schoolers.jpg"
+                                            data-wpel-link="internal"><img decoding="async"
+                                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDE1MDAiIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjE1MDAiIGRhdGEtdT0iaHR0cHMlM0ElMkYlMkZ3d3cuZXZlcnl0aGluZ21vbS5jb20lMkZ3cC1jb250ZW50JTJGdXBsb2FkcyUyRjIwMjElMkYwMiUyRkRlYmF0ZS1RdWVzdGlvbnMtZm9yLUhpZ2gtc2Nob29sZXJzLmpwZyIgZGF0YS13PSIxMDAwIiBkYXRhLWg9IjE1MDAiIGRhdGEtYmlwPSIiPjwvc3ZnPg=="
+                                                data-spai="1" alt="Debate Questions for High schoolers"
+                                                class="wp-image-48474" width="393" height="590" /></a></figure>
+                                </div>
+
+
+                                <p>These questions requirer higher-level thinking and are a little more
+                                    controversial.&nbsp;</p>
+
+
+
+                                <ol>
+                                    <li>Mac or PCs.&nbsp;</li>
+                                    <li>Phones should be allowed to be at school.&nbsp;</li>
+                                    <li>Everyone deserves the same education.&nbsp;</li>
+                                    <li>College should be free.&nbsp;</li>
+                                    <li>Everyone should make the same amount of money.&nbsp;</li>
+                                    <li>Women should be able to have an abortion.&nbsp;</li>
+                                    <li>Kids should be able to drink and party if they choose.&nbsp;</li>
+                                    <li>It is okay for friends to do assignments together.&nbsp;</li>
+                                    <li>Parents should not be allowed in High School kid’s rooms.&nbsp;</li>
+                                    <li>You should not have unlimited data.&nbsp;</li>
+                                    <li>Tik Tok should be banned.&nbsp;</li>
+                                    <li>Censorship is happening every day.&nbsp;</li>
+                                    <li>The president should be able to serve for longer than 2 terms.&nbsp;</li>
+                                    <li>Socialized medicine is better than what we have now.&nbsp;</li>
+                                    <li>School should all be online.&nbsp;</li>
+                                    <li>SAT and ACT tests should not matter.&nbsp;</li>
+                                    <li>All colleges should cost the same amount of money.&nbsp;</li>
+                                    <li>High school sports are important.&nbsp;</li>
+                                    <li>Kids should be punished for bad grades.&nbsp;</li>
+                                    <li>Animals should always be used for medical testing.&nbsp;</li>
+                                    <li>My parents should buy me everything I want.</li>
+                                    <li>We see entitlement all around us.&nbsp;</li>
+                                    <li>Kids should get brand new cars.&nbsp;</li>
+                                    <li>The death penalty should be banned.&nbsp;</li>
+                                    <li>Sex offenders should never be released from prison.&nbsp;</li>
+                                    <li>Boys and girls should play on the same team.&nbsp;</li>
+                                    <li>Boys should be able to play girls’ sports.&nbsp;</li>
+                                    <li>Kids that are 16+ should be able to get tattoos.&nbsp;</li>
+                                    <li>Women’s rights should be taken more seriously.</li>
+                                    <li>Sex education should be mandatory.&nbsp;</li>
+                                    <li>You should have to marry by age 30.</li>
+                                    <li>Computers will replace jobs.&nbsp;</li>
+                                    <li>High schools should be single-sex.&nbsp;</li>
+                                    <li>Kids should go to jail for drug use.&nbsp;</li>
+                                    <li>HIgh school kids should take home skills courses.&nbsp;</li>
+                                </ol>
+
+
+
+                                <p>There you have it! 130 great debate topics for kids. What would you add to the list?
+                                    Share in the comments below!</p>
+
+
+
+                                <h3 id="h-love-this-post-try-these">Love this post? Try these!</h3>
+
+
+
+                                <ul>
+                                    <li><a href="https://www.everythingmom.com/parenting/education/math-activities-for-preschoolers"
+                                            target="_blank" rel="noreferrer noopener" data-wpel-link="internal">Simple
+                                            Math Activities for Preschoolers</a></li>
+                                    <li><a href="https://www.everythingmom.com/parenting/education/back-to-school-activities"
+                                            target="_blank" rel="noreferrer noopener" data-wpel-link="internal">10 Back
+                                            to School Activities for Kids</a></li>
+                                    <li><a href="https://www.everythingmom.com/parenting/education/homeschooling-how-to-homeschool"
+                                            target="_blank" rel="noreferrer noopener" data-wpel-link="internal">How to
+                                            Homeschool: 8 Simple Steps to Help You Get Started</a></li>
+                                    <li><a href="https://www.everythingmom.com/activities/preschool-activities"
+                                            target="_blank" rel="noreferrer noopener"
+                                            data-wpel-link="internal">Preschool Activities You Can Do at Home</a></li>
+                                </ul>
+                                <p class="dpsp-share-text ">Sharing is Caring!</p>
+                                <div id="dpsp-content-bottom"
+                                    class="dpsp-content-wrapper dpsp-shape-rectangular dpsp-size-medium dpsp-has-spacing dpsp-has-buttons-count dpsp-show-on-mobile dpsp-show-total-share-count dpsp-show-total-share-count-after dpsp-button-style-2">
+                                    <div class="dpsp-total-share-wrapper"><span
+                                            class="dpsp-icon-total-share"></span><span
+                                            class="dpsp-total-share-count">160</span><span>shares</span></div>
+                                    <ul
+                                        class="dpsp-networks-btns-wrapper dpsp-networks-btns-content dpsp-networks-btns-share dpsp-column-auto dpsp-has-button-icon-animation">
+                                        <li><a rel="nofollow noopener noreferrer external"
+                                                href="https://twitter.com/intent/tweet?text=130%20Interesting%20Debate%20Topics%20for%20Kids%20of%20All%20Ages&amp;url=https%3A%2F%2Fh2b.co%2F3WPY277&amp;via=EverythingMom"
+                                                class="dpsp-network-btn dpsp-twitter dpsp-first"
+                                                data-wpel-link="external" target="_blank"><span
+                                                    class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Twitter</span></span></a></li>
+                                        <li><a rel="nofollow noopener noreferrer external"
+                                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fh2b.co%2F3WPY277&amp;t=130%20Interesting%20Debate%20Topics%20for%20Kids%20of%20All%20Ages"
+                                                class="dpsp-network-btn dpsp-facebook" data-wpel-link="external"
+                                                target="_blank"><span class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Facebook</span></span></a></li>
+                                        <li><a rel="nofollow noopener noreferrer" data-href="#"
+                                                class="dpsp-network-btn dpsp-pinterest dpsp-has-count"
+                                                data-wpel-link="internal"><span class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Pinterest</span><span
+                                                        class="dpsp-network-count">160</span></span></a></li>
+                                        <li><a rel="nofollow noopener noreferrer"
+                                                href="/cdn-cgi/l/email-protection#8fb0fcfaede5eaecfbb2bebcbfaabdbfc6e1fbeafdeafcfbe6e1e8aabdbfcbeaedeefbeaaabdbfdbe0ffe6ecfcaabdbfe9e0fdaabdbfc4e6ebfcaabdbfe0e9aabdbfcee3e3aabdbfcee8eafca9eee2ffb4ede0ebf6b2e7fbfbfffcaabcceaabdc9aabdc9e7bdeda1ece0aabdc9bcd8dfd6bdb8b8"
+                                                class="dpsp-network-btn dpsp-email dpsp-last"><span
+                                                    class="dpsp-network-icon"></span><span
+                                                    class="dpsp-network-label-wrapper"><span
+                                                        class="dpsp-network-label">Email</span></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <footer class="entry-meta" aria-label="Entry meta">
+                                <span class="cat-links"><span class="screen-reader-text">Categories </span><a
+                                        href="https://www.everythingmom.com/category/parenting/education"
+                                        rel="category tag" data-wpel-link="internal">Education</a></span>
+                            </footer>
+                        </div>
+                    </article>
+
+                    <div class="comments-area">
+                        <div id="comments">
+
+                            <div id="respond" class="comment-respond">
+                                <h3 id="reply-title" class="comment-reply-title">Leave a Comment <small><a
+                                            rel="nofollow" id="cancel-comment-reply-link"
+                                            href="/parenting/education/debate-topics-for-kids#respond"
+                                            style="display:none;" data-wpel-link="internal">Cancel reply</a></small>
+                                </h3>
+                                <form action="https://www.everythingmom.com/wp-comments-post.php" method="post"
+                                    id="commentform" class="comment-form" novalidate>
+                                    <p class="comment-form-comment"><label for="comment"
+                                            class="screen-reader-text">Comment</label><textarea id="comment"
+                                            name="comment" cols="45" rows="8" required></textarea></p><label
+                                        for="author" class="screen-reader-text">Name</label><input placeholder="Name *"
+                                        id="author" name="author" type="text" value="" size="30" required />
+                                    <label for="email" class="screen-reader-text">Email</label><input
+                                        placeholder="Email *" id="email" name="email" type="email" value="" size="30"
+                                        required />
+                                    <label for="url" class="screen-reader-text">Website</label><input
+                                        placeholder="Website" id="url" name="url" type="url" value="" size="30" />
+                                    <p class="form-submit"><input name="submit" type="submit" id="submit" class="submit"
+                                            value="Post Comment" /> <input type='hidden' name='comment_post_ID'
+                                            value='48473' id='comment_post_ID' />
+                                        <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                                    </p><!-- Anti-spam plugin wordpress.org/plugins/anti-spam/ -->
+                                    <div class="wantispam-required-fields"><input type="hidden" name="wantispam_t"
+                                            class="wantispam-control wantispam-control-t" value="1679034116" />
+                                        <div class="wantispam-group wantispam-group-q" style="clear: both;">
+                                            <label>Current <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                                    data-cfemail="126b775260">[email&#160;protected]</a> <span
+                                                    class="required">*</span></label>
+                                            <input type="hidden" name="wantispam_a"
+                                                class="wantispam-control wantispam-control-a" value="2023" />
+                                            <input type="text" name="wantispam_q"
+                                                class="wantispam-control wantispam-control-q" value="7.3.4"
+                                                autocomplete="off" />
+                                        </div>
+                                        <div class="wantispam-group wantispam-group-e" style="display: none;">
+                                            <label>Leave this field empty</label>
+                                            <input type="text" name="wantispam_e_email_url_website"
+                                                class="wantispam-control wantispam-control-e" value=""
+                                                autocomplete="off" />
+                                        </div>
+                                    </div><!--\End Anti-spam plugin -->
+                                </form>
+                            </div><!-- #respond -->
+
+                        </div><!-- #comments -->
+                    </div>
+
+                </main>
+            </div>
+
+            <div class="widget-area sidebar is-right-sidebar grid-30 tablet-grid-30 grid-parent" id="right-sidebar">
+                <div class="inside-right-sidebar">
+                    <aside id="search-2" class="widget inner-padding widget_search">
+                        <h2 class="widget-title">FIND EVERYTHING</h2>
+                        <form method="get" class="search-form" action="https://www.everythingmom.com/">
+                            <label>
+                                <span class="screen-reader-text">Search for:</span>
+                                <input type="search" class="search-field" placeholder="Search &hellip;" value=""
+                                    name="s" title="Search for:">
+                            </label>
+                            <input type="submit" class="search-submit" value="Search">
+                        </form>
+                    </aside>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="site-footer">
+        <div id="footer-widgets" class="site footer-widgets">
+            <div class="footer-widgets-container grid-container grid-parent">
+                <div class="inside-footer-widgets">
+                    <div class="footer-widget-1 grid-parent grid-25 tablet-grid-50 mobile-grid-100">
+                        <aside id="text-3" class="widget inner-padding widget_text">
+                            <div class="textwidget">
+                                <p><a href="https://www.everythingmom.com/wp-content/uploads/2022/05/footer-logo.png"
+                                        data-wpel-link="internal"><img decoding="async"
+                                            class="alignnone wp-image-51693 size-medium"
+                                            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMzI2IDE5OSIgd2lkdGg9IjEzMjYiIGhlaWdodD0iMTk5IiBkYXRhLXU9Imh0dHBzJTNBJTJGJTJGd3d3LmV2ZXJ5dGhpbmdtb20uY29tJTJGd3AtY29udGVudCUyRnVwbG9hZHMlMkYyMDIyJTJGMDUlMkZmb290ZXItbG9nby5wbmciIGRhdGEtdz0iMTMyNiIgZGF0YS1oPSIxOTkiIGRhdGEtYmlwPSIiPjwvc3ZnPg=="
+                                            data-spai="1" alt="" width="300" height="45" /></a></p>
+                                <p class="ft1">Our mission is simple: Help moms everywhere feel happy with who they are
+                                    and how they’re raising their families — And overcome their doubts.</p>
+                                <p class="ft2">All rights reserved 2022 © EverythingMom</p>
+                                <p class="ft3"><a href="https://www.everythingmom.com/privacy-policy"
+                                        data-wpel-link="internal">Privacy Policy</a> <a
+                                        href="https://www.everythingmom.com/disclaimer"
+                                        data-wpel-link="internal">Disclaimer</a> <a
+                                        href="https://www.everythingmom.com/terms-and-conditions"
+                                        data-wpel-link="internal">Terms and Condition</a></p>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="footer-widget-2 grid-parent grid-25 tablet-grid-50 mobile-grid-100">
+                        <aside id="nav_menu-2" class="widget inner-padding widget_nav_menu">
+                            <h2 class="widget-title">Everything Else</h2>
+                            <div class="menu-footer-menu-container">
+                                <ul id="menu-footer-menu" class="menu">
+                                    <li id="menu-item-15317"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15317">
+                                        <a href="https://www.everythingmom.com/about-us" data-wpel-link="internal">About
+                                            EverythingMom</a></li>
+                                    <li id="menu-item-15592"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15592">
+                                        <a href="https://www.everythingmom.com/writing-opportunities"
+                                            data-wpel-link="internal">Write for Us</a></li>
+                                    <li id="menu-item-15433"
+                                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15433">
+                                        <a href="https://www.everythingmom.com/contact"
+                                            data-wpel-link="internal">Contact Us</a></li>
+                                    <li id="menu-item-33059"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-33059">
+                                        <a href="https://www.everythingmom.com/activities/60-jokes-to-make-kids-laugh"
+                                            data-wpel-link="internal">Hilarious Jokes for Kids</a></li>
+                                    <li id="menu-item-33060"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-33060">
+                                        <a href="https://www.everythingmom.com/parenting/riddles-and-brain-teasers-for-kids"
+                                            data-wpel-link="internal">Riddles and Brain Teasers</a></li>
+                                    <li id="menu-item-33058"
+                                        class="menu-item menu-item-type-post_type menu-item-object-post menu-item-33058">
+                                        <a href="https://www.everythingmom.com/activities/50-tongue-twisters-for-family-fun"
+                                            data-wpel-link="internal">Tongue Twisters</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="footer-widget-3 grid-parent grid-25 tablet-grid-50 mobile-grid-100">
+                        <aside id="nav_menu-3" class="widget inner-padding widget_nav_menu">
+                            <h2 class="widget-title">Explore EverythingMOM</h2>
+                            <div class="menu-explore-everythingmom-container">
+                                <ul id="menu-explore-everythingmom" class="menu">
+                                    <li id="menu-item-33180"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-33180">
+                                        <a href="https://www.etsy.com/shop/EverythingmomStore" data-wpel-link="external"
+                                            target="_blank" rel="external noopener noreferrer">Printables Shop</a></li>
+                                    <li id="menu-item-15322"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15322">
+                                        <a href="https://www.everythingmom.com/pregnancy-week-by-week/weeks-pregnant-how-many-weeks-pregnant"
+                                            data-wpel-link="internal">Pregnancy Week by Week</a></li>
+                                    <li id="menu-item-33051"
+                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33051">
+                                        <a href="https://www.everythingmom.com/category/food-2/food-recipes"
+                                            data-wpel-link="internal">Recipes</a></li>
+                                    <li id="menu-item-33044"
+                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33044">
+                                        <a href="https://www.everythingmom.com/category/activities/crafts-for-kids"
+                                            data-wpel-link="internal">Crafts for Kids</a></li>
+                                    <li id="menu-item-15323"
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15323">
+                                        <a href="https://www.everythingmom.com/travel-guide/the-best-family-travel-ideas"
+                                            data-wpel-link="internal">Family Travel Guide</a></li>
+                                    <li id="menu-item-33056"
+                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33056">
+                                        <a href="https://www.everythingmom.com/category/pregancy/nesting"
+                                            data-wpel-link="internal">Nesting</a></li>
+                                    <li id="menu-item-33047"
+                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33047">
+                                        <a href="https://www.everythingmom.com/category/activities/kids-books"
+                                            data-wpel-link="internal">Kids Books</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+                    </div>
+                    <div class="footer-widget-4 grid-parent grid-25 tablet-grid-50 mobile-grid-100">
+                        <aside id="lsi_widget-3" class="widget inner-padding widget_lsi_widget">
+                            <h2 class="widget-title"> Follow us: </h2>
+                            <ul class="lsi-social-icons icon-set-lsi_widget-3" style="text-align: center">
+                                <li class="lsi-social-facebook"><a class="" rel="nofollow noopener noreferrer"
+                                        title="Facebook" aria-label="Facebook" href="https://facebook.com/EverythingMom"
+                                        target="_blank"><i class="lsicon lsicon-facebook"></i></a></li>
+                                <li class="lsi-social-twitter"><a class="" rel="nofollow noopener noreferrer"
+                                        title="Twitter" aria-label="Twitter" href="https://twitter.com/EverythingMom"
+                                        target="_blank"><i class="lsicon lsicon-twitter"></i></a></li>
+                                <li class="lsi-social-youtube"><a class="" rel="nofollow noopener noreferrer"
+                                        title="YouTube" aria-label="YouTube"
+                                        href="https://www.youtube.com/user/EverythingMomVideos" target="_blank"><i
+                                            class="lsicon lsicon-youtube"></i></a></li>
+                                <li class="lsi-social-pinterest"><a class="" rel="nofollow noopener noreferrer"
+                                        title="Pinterest" aria-label="Pinterest"
+                                        href="https://pinterest.com/EverythingMom" target="_blank"><i
+                                            class="lsicon lsicon-pinterest"></i></a></li>
+                                <li class="lsi-social-instagram"><a class="" rel="nofollow noopener noreferrer"
+                                        title="Instagram" aria-label="Instagram"
+                                        href="https://instagram.com/everythingmom" target="_blank"><i
+                                            class="lsicon lsicon-instagram"></i></a></li>
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="site-info" aria-label="Site" itemtype="https://schema.org/WPFooter" itemscope>
+            <div class="inside-site-info grid-container grid-parent">
+                <div class="copyright-bar">
+                    © 2005-2022 EverythingMom Media Inc. All Rights Reserved | <a
+                        href="https://www.everythingmom.com/privacy-policy" data-wpel-link="internal">Privacy Policy</a>
+                    | <a href="https://www.everythingmom.com/Disclaimer" data-wpel-link="internal">Disclaimer</a> </div>
+            </div>
+        </footer>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script type="rocketlazyloadscript"
+        id="generate-a11y">!function(){"use strict";if("querySelector"in document&&"addEventListener"in window){var e=document.body;e.addEventListener("mousedown",function(){e.classList.add("using-mouse")}),e.addEventListener("keydown",function(){e.classList.remove("using-mouse")})}}();</script>
+    <!-- Meta Pixel Event Code -->
+    <script type="rocketlazyloadscript" data-rocket-type='text/javascript'>
+        document.addEventListener( 'wpcf7mailsent', function( event ) {
+        if( "fb_pxl_code" in event.detail.apiResponse){
+          eval(event.detail.apiResponse.fb_pxl_code);
+        }
+      }, false );
+    </script>
+    <!-- End Meta Pixel Event Code -->
+    <div id='fb-pxl-ajax-code'></div>
+    <style id='lsi-style-inline-css'>
+        .icon-set-lsi_widget-3 a,
+        .icon-set-lsi_widget-3 a:visited,
+        .icon-set-lsi_widget-3 a:focus {
+            border-radius: 25px;
+            background: #ffffff !important;
+            color: #515151 !important;
+            font-size: 18px !important;
+        }
+
+        .icon-set-lsi_widget-3 a:hover {
+            background: #5e92bf !important;
+            color: #ffffff !important;
+        }
+    </style>
+    <script id='convertkit-broadcasts-js-extra'>
+        var convertkit_broadcasts = { "ajax_url": "https:\/\/www.everythingmom.com\/wp-admin\/admin-ajax.php", "action": "convertkit_broadcasts_render", "debug": "" };
+    </script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/convertkit/resources/frontend/js/broadcasts.js?ver=1679030457'
+        id='convertkit-broadcasts-js' defer></script>
+    <script type="rocketlazyloadscript" data-rocket-src='https://wander-media.ck.page/commerce.js?ver=2.1.1'
+        id='convertkit-commerce-js' defer></script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/anti-spam/assets/js/anti-spam.js?ver=1679030457'
+        id='anti-spam-script-js' defer></script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=1679030457'
+        id='swv-js' defer></script>
+    <script id='contact-form-7-js-extra'>
+        var wpcf7 = { "api": { "root": "https:\/\/www.everythingmom.com\/wp-json\/", "namespace": "contact-form-7\/v1" }, "cached": "1" };
+    </script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1679030457'
+        id='contact-form-7-js' defer></script>
+    <script id='convertkit-js-js-extra'>
+        var convertkit = { "ajaxurl": "https:\/\/www.everythingmom.com\/wp-admin\/admin-ajax.php", "debug": "", "nonce": "bf80bbf854", "subscriber_id": "", "tag": "", "post_id": "48473" };
+    </script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/convertkit/resources/frontend/js/convertkit.js?ver=1679030457'
+        id='convertkit-js-js' defer></script>
+    <script id='spai-scripts-js-extra'>
+        var spai_settings = { "api_domain": "cdn.shortpixel.ai", "api_url": "https:\/\/cdn.shortpixel.ai\/spai\/w_%WIDTH%+q_lossy+ret_img", "api_short_url": "https:\/\/cdn.shortpixel.ai\/spai\/ret_img", "method": "src", "crop": "", "size_breakpoints": { "on": null, "base": null, "rate": null }, "lqip": "", "lazy_threshold": "500", "hover_handling": "", "native_lazy": "", "serve_svg": "1", "debug": "", "site_url": "https:\/\/www.everythingmom.com", "plugin_url": "https:\/\/www.everythingmom.com\/wp-content\/plugins\/shortpixel-adaptive-images", "version": "3.6.3", "excluded_selectors": [], "eager_selectors": [], "noresize_selectors": [], "alter2wh": "", "use_first_sizes": [], "lazy_bg_style": "", "active_integrations": { "nextgen": false, "modula": false, "elementor": false, "elementor-addons": false, "viba-portfolio": false, "envira": false, "everest": false, "wp-bakery": false, "woocommerce": false, "wpc-variations": false, "foo": false, "global-gallery": false, "essential-grid": false, "oxygen": false, "slider-revolution": false, "custom-facebook-feed": false, "smart-slider": false, "real3d-flipbook": false, "wp-grid-builder": false, "beaver-builder": false, "the-grid": false, "social-pug": true, "instagram-feed": false, "insta-gallery": false, "content-views": false, "acf": false, "soliloquy": false, "jetpack": false, "wp-rocket": { "lazyload": false, "css-filter": true, "minify-css": true, "defer-all-js": false, "video-placeholder": true }, "perfmatters": false, "swift-performance": false, "imagify": { "active": false }, "wp-fastest-cache": false, "litespeed-cache": false, "w3-total-cache": false, "wp-super-cache": false, "wp-optimize": { "active": false, "enable_css": false, "enable_merging_of_css": false }, "breeze": false, "smart-cookie-kit": false, "wpzoom-theme": false, "avia-gallery-module": false, "theme": "GeneratePress Child" }, "parse_css_files": "", "backgrounds_max_width": "1920", "sep": "+", "webp": "1", "avif": "", "webp_detect": "", "extensions_to_nextgenimg": { "png": true, "jpg": true, "gif": true }, "sniper": "https:\/\/www.everythingmom.com\/wp-content\/plugins\/shortpixel-adaptive-images\/assets\/img\/target.cur", "affected_tags": "{\"script\":4}", "ajax_url": "https:\/\/www.everythingmom.com\/wp-admin\/admin-ajax.php", "excluded_paths": ["cmVnZXg6L1wvXC8oW15cL10qXC58KWdyYXZhdGFyLmNvbVwvLw==", "cGF0aDovL2kueXRpbWcuY29tL3ZpL0lEL2hxZGVmYXVsdC5qcGc="] };
+    </script>
+    <script data-cfasync="false"
+        src='https://www.everythingmom.com/wp-content/plugins/shortpixel-adaptive-images/assets/js/ai-2.0.min.js'
+        id='spai-scripts-js' defer></script>
+    <script id='ta_main_js-js-extra'>
+        var thirsty_global_vars = { "home_url": "\/\/www.everythingmom.com", "ajax_url": "https:\/\/www.everythingmom.com\/wp-admin\/admin-ajax.php", "link_fixer_enabled": "yes", "link_prefix": "link", "link_prefixes": { "0": "recommends", "5": "link" }, "post_id": "48473", "enable_record_stats": "yes", "enable_js_redirect": "yes", "disable_thirstylink_class": "" };
+    </script>
+    <script data-minify="1"
+        src='https://www.everythingmom.com/wp-content/cache/min/1/wp-content/plugins/thirstyaffiliates/js/app/ta.js?ver=1679030457'
+        id='ta_main_js-js' defer></script>
+    <script id='rocket-browser-checker-js-after'>
+        "use strict"; var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1, descriptor.configurable = !0, "value" in descriptor && (descriptor.writable = !0), Object.defineProperty(target, descriptor.key, descriptor) } } return function (Constructor, protoProps, staticProps) { return protoProps && defineProperties(Constructor.prototype, protoProps), staticProps && defineProperties(Constructor, staticProps), Constructor } }(); function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function") } var RocketBrowserCompatibilityChecker = function () { function RocketBrowserCompatibilityChecker(options) { _classCallCheck(this, RocketBrowserCompatibilityChecker), this.passiveSupported = !1, this._checkPassiveOption(this), this.options = !!this.passiveSupported && options } return _createClass(RocketBrowserCompatibilityChecker, [{ key: "_checkPassiveOption", value: function (self) { try { var options = { get passive() { return !(self.passiveSupported = !0) } }; window.addEventListener("test", null, options), window.removeEventListener("test", null, options) } catch (err) { self.passiveSupported = !1 } } }, { key: "initRequestIdleCallback", value: function () { !1 in window && (window.requestIdleCallback = function (cb) { var start = Date.now(); return setTimeout(function () { cb({ didTimeout: !1, timeRemaining: function () { return Math.max(0, 50 - (Date.now() - start)) } }) }, 1) }), !1 in window && (window.cancelIdleCallback = function (id) { return clearTimeout(id) }) } }, { key: "isDataSaverModeOn", value: function () { return "connection" in navigator && !0 === navigator.connection.saveData } }, { key: "supportsLinkPrefetch", value: function () { var elem = document.createElement("link"); return elem.relList && elem.relList.supports && elem.relList.supports("prefetch") && window.IntersectionObserver && "isIntersecting" in IntersectionObserverEntry.prototype } }, { key: "isSlowConnection", value: function () { return "connection" in navigator && "effectiveType" in navigator.connection && ("2g" === navigator.connection.effectiveType || "slow-2g" === navigator.connection.effectiveType) } }]), RocketBrowserCompatibilityChecker }();
+    </script>
+    <script id='rocket-preload-links-js-extra'>
+        var RocketPreloadLinksConfig = { "excludeUris": "\/robots.txt|\/sitemap_index.xml|\/(?:.+\/)?feed(?:\/(?:.+\/?)?)?$|\/(?:.+\/)?embed\/|\/(index\\.php\/)?(.*)wp\\-json(\/.*|$)|\/link\/", "usesTrailingSlash": "", "imageExt": "jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php", "fileExt": "jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm", "siteUrl": "https:\/\/www.everythingmom.com", "onHoverDelay": "100", "rateThrottle": "3" };
+    </script>
+    <script id='rocket-preload-links-js-after'>
+        (function () {
+            "use strict"; var r = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (e) { return typeof e } : function (e) { return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e }, e = function () { function i(e, t) { for (var n = 0; n < t.length; n++) { var i = t[n]; i.enumerable = i.enumerable || !1, i.configurable = !0, "value" in i && (i.writable = !0), Object.defineProperty(e, i.key, i) } } return function (e, t, n) { return t && i(e.prototype, t), n && i(e, n), e } }(); function i(e, t) { if (!(e instanceof t)) throw new TypeError("Cannot call a class as a function") } var t = function () { function n(e, t) { i(this, n), this.browser = e, this.config = t, this.options = this.browser.options, this.prefetched = new Set, this.eventTime = null, this.threshold = 1111, this.numOnHover = 0 } return e(n, [{ key: "init", value: function () { !this.browser.supportsLinkPrefetch() || this.browser.isDataSaverModeOn() || this.browser.isSlowConnection() || (this.regex = { excludeUris: RegExp(this.config.excludeUris, "i"), images: RegExp(".(" + this.config.imageExt + ")$", "i"), fileExt: RegExp(".(" + this.config.fileExt + ")$", "i") }, this._initListeners(this)) } }, { key: "_initListeners", value: function (e) { -1 < this.config.onHoverDelay && document.addEventListener("mouseover", e.listener.bind(e), e.listenerOptions), document.addEventListener("mousedown", e.listener.bind(e), e.listenerOptions), document.addEventListener("touchstart", e.listener.bind(e), e.listenerOptions) } }, { key: "listener", value: function (e) { var t = e.target.closest("a"), n = this._prepareUrl(t); if (null !== n) switch (e.type) { case "mousedown": case "touchstart": this._addPrefetchLink(n); break; case "mouseover": this._earlyPrefetch(t, n, "mouseout") } } }, { key: "_earlyPrefetch", value: function (t, e, n) { var i = this, r = setTimeout(function () { if (r = null, 0 === i.numOnHover) setTimeout(function () { return i.numOnHover = 0 }, 1e3); else if (i.numOnHover > i.config.rateThrottle) return; i.numOnHover++, i._addPrefetchLink(e) }, this.config.onHoverDelay); t.addEventListener(n, function e() { t.removeEventListener(n, e, { passive: !0 }), null !== r && (clearTimeout(r), r = null) }, { passive: !0 }) } }, { key: "_addPrefetchLink", value: function (i) { return this.prefetched.add(i.href), new Promise(function (e, t) { var n = document.createElement("link"); n.rel = "prefetch", n.href = i.href, n.onload = e, n.onerror = t, document.head.appendChild(n) }).catch(function () { }) } }, { key: "_prepareUrl", value: function (e) { if (null === e || "object" !== (void 0 === e ? "undefined" : r(e)) || !1 in e || -1 === ["http:", "https:"].indexOf(e.protocol)) return null; var t = e.href.substring(0, this.config.siteUrl.length), n = this._getPathname(e.href, t), i = { original: e.href, protocol: e.protocol, origin: t, pathname: n, href: t + n }; return this._isLinkOk(i) ? i : null } }, { key: "_getPathname", value: function (e, t) { var n = t ? e.substring(this.config.siteUrl.length) : e; return n.startsWith("/") || (n = "/" + n), this._shouldAddTrailingSlash(n) ? n + "/" : n } }, { key: "_shouldAddTrailingSlash", value: function (e) { return this.config.usesTrailingSlash && !e.endsWith("/") && !this.regex.fileExt.test(e) } }, { key: "_isLinkOk", value: function (e) { return null !== e && "object" === (void 0 === e ? "undefined" : r(e)) && (!this.prefetched.has(e.href) && e.origin === this.config.siteUrl && -1 === e.href.indexOf("?") && -1 === e.href.indexOf("#") && !this.regex.excludeUris.test(e.href) && !this.regex.images.test(e.href)) } }], [{ key: "run", value: function () { "undefined" != typeof RocketPreloadLinksConfig && new n(new RocketBrowserCompatibilityChecker({ capture: !0, passive: !0 }), RocketPreloadLinksConfig).init() } }]), n }(); t.run();
+        }());
+    </script>
+    <!--[if lte IE 11]>
+<script src='https://www.everythingmom.com/wp-content/themes/generatepress/assets/js/classList.min.js?ver=3.2.4' id='generate-classlist-js'></script>
+<![endif]-->
+    <script id='generate-menu-js-extra'>
+        var generatepressMenu = { "toggleOpenedSubMenus": "1", "openSubMenuLabel": "Open Sub-Menu", "closeSubMenuLabel": "Close Sub-Menu" };
+    </script>
+    <script src='https://www.everythingmom.com/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.2.4'
+        id='generate-menu-js' defer></script>
+    <script src='https://www.everythingmom.com/wp-includes/js/comment-reply.min.js?ver=6.1.1' id='comment-reply-js'
+        defer></script>
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript">window.addEventListener('DOMContentLoaded', function() {
+            var thirstyGoogleClickTrack = function ( e ) {
+
+                var $this       = jQuery( this ),
+                    linkID      = $this.data( 'linkid' ),
+                    href        = linkID ? $this.attr( 'href' ) : thirstyFunctions.isThirstyLink( $this.attr( 'href' ) ),
+                    action_name = 'Affiliate Link',
+                    page_slug   = '/parenting/education/debate-topics-for-kids',
+                    home_url    = 'https://www.everythingmom.com';
+
+                if ( ! href || typeof ga !== 'function' ) {
+                    return;
+                }
+
+                var is_uncloak  = href.indexOf( home_url + '/' + thirsty_global_vars.link_prefix ) < 0,
+                    href_parts  = href.split('/'),
+                    href_last   = href_parts[ href_parts.length - 1 ] ? href_parts[ href_parts.length - 1 ] : href_parts[ href_parts.length - 2 ],
+                    link_text   = $this.text(),
+                    link_uri    = linkID && is_uncloak ? href : href.replace( home_url , '' ),
+                    link_slug   = linkID && is_uncloak ? href : href_last;
+
+                ga( 'send' , 'event' , {
+                    eventCategory : action_name,
+                    eventAction   : link_uri,
+                    eventLabel    : page_slug,
+                    transport     : 'beacon'
+                } );
+            };
+
+            jQuery( document ).ready( function($) {
+                $( 'body' ).on( 'click', 'a', thirstyGoogleClickTrack );
+            });
+        });</script>
+    <script type="text/javascript">
+        var images = new Array()
+        function preload() {
+            for (i = 0; i < preload.arguments.length; i++) {
+                images[i] = new Image()
+                images[i].src = preload.arguments[i]
+            }
+        }
+        preload("https://cdn.shortpixel.ai/spai/w_932+q_lossy+ret_img+to_webp/https://www.everythingmom.com/wp-content/uploads/2017/05/funny-jokes-for-kids.jpg",
+            "https://www.everythingmom.com/wp-content/uploads/2017/05/funny-jokes-for-kids.jpg"
+        )
+    </script>
+    <script>window.lazyLoadOptions = [{ elements_selector: "img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]", data_src: "lazy-src", data_srcset: "lazy-srcset", data_sizes: "lazy-sizes", class_loading: "lazyloading", class_loaded: "lazyloaded", threshold: 300, callback_loaded: function (element) { if (element.tagName === "IFRAME" && element.dataset.rocketLazyload == "fitvidscompatible") { if (element.classList.contains("lazyloaded")) { if (typeof window.jQuery != "undefined") { if (jQuery.fn.fitVids) { jQuery(element).parent().fitVids() } } } } } }, { elements_selector: ".rocket-lazyload", data_src: "lazy-src", data_srcset: "lazy-srcset", data_sizes: "lazy-sizes", class_loading: "lazyloading", class_loaded: "lazyloaded", threshold: 300, }]; window.addEventListener('LazyLoad::Initialized', function (e) {
+            var lazyLoadInstance = e.detail.instance; if (window.MutationObserver) {
+                var observer = new MutationObserver(function (mutations) {
+                    var image_count = 0; var iframe_count = 0; var rocketlazy_count = 0; mutations.forEach(function (mutation) {
+                        for (var i = 0; i < mutation.addedNodes.length; i++) {
+                            if (typeof mutation.addedNodes[i].getElementsByTagName !== 'function') { continue }
+                            if (typeof mutation.addedNodes[i].getElementsByClassName !== 'function') { continue }
+                            images = mutation.addedNodes[i].getElementsByTagName('img'); is_image = mutation.addedNodes[i].tagName == "IMG"; iframes = mutation.addedNodes[i].getElementsByTagName('iframe'); is_iframe = mutation.addedNodes[i].tagName == "IFRAME"; rocket_lazy = mutation.addedNodes[i].getElementsByClassName('rocket-lazyload'); image_count += images.length; iframe_count += iframes.length; rocketlazy_count += rocket_lazy.length; if (is_image) { image_count += 1 }
+                            if (is_iframe) { iframe_count += 1 }
+                        }
+                    }); if (image_count > 0 || iframe_count > 0 || rocketlazy_count > 0) { lazyLoadInstance.update() }
+                }); var b = document.getElementsByTagName("body")[0]; var config = { childList: !0, subtree: !0 }; observer.observe(b, config)
+            }
+        }, !1)</script>
+    <script data-no-minify="1" async
+        src="https://www.everythingmom.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.5/lazyload.min.js"></script>
+    <script>function lazyLoadThumb(e) { var t = '<img data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript>__sp_noscript_plAc3h0ldR_3</noscript>', a = '<button class="play" aria-label="play Youtube video"></button>'; return t.replace("ID", e) + a } function lazyLoadYoutubeIframe() { var e = document.createElement("iframe"), t = "ID?autoplay=1"; t += 0 === this.parentNode.dataset.query.length ? '' : '&' + this.parentNode.dataset.query; e.setAttribute("src", t.replace("ID", this.parentNode.dataset.src)), e.setAttribute("frameborder", "0"), e.setAttribute("allowfullscreen", "1"), e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"), this.parentNode.parentNode.replaceChild(e, this.parentNode) } document.addEventListener("DOMContentLoaded", function () { var e, t, p, a = document.getElementsByClassName("rll-youtube-player"); for (t = 0; t < a.length; t++)e = document.createElement("div"), e.setAttribute("data-id", a[t].dataset.id), e.setAttribute("data-query", a[t].dataset.query), e.setAttribute("data-src", a[t].dataset.src), e.innerHTML = lazyLoadThumb(a[t].dataset.id), a[t].appendChild(e), p = e.querySelector('.play'), p.onclick = lazyLoadYoutubeIframe });</script>
+</body>
+
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1679034116 -->

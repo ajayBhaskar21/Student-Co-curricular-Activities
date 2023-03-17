@@ -12,3 +12,17 @@ document.getElementById('a3').addEventListener("click", function(){
 
 });
 
+document.getElementById('a2').addEventListener('click', function(){
+    window.location.href = 'poetry.html';
+});
+
+document.getElementById('a5').addEventListener('click', function () {
+    window.location.href = 'essay.html';
+});
+
+document.getElementById('a6').addEventListener('click', function () {
+    window.location.href = 'debate.html';
+});
+
+
+
