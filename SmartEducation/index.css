@@ -1,0 +1,48 @@
+
+
+
+body{
+    background-color: yellow;
+}
+
+h2{
+    text-align: center;
+}
+
+
+.form {
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    
+    margin-top: 100px;
+    background-color: lightblue;
+    border: 2px solid blue;
+   
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+input{
+    border-radius:7px;
+    border: 1px solid;
+    border-width: 2px;
+    color: blue;
+    font-size: large;
+}
+
+#bt1{
+    color: black;
+
+    background-color: lightgreen;
+
+    font-size: 35px;
+
+
+}
+
+
+
+
